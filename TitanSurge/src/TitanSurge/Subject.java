@@ -1,4 +1,4 @@
-package Titan;
+package TitanSurge;
 
 import java.util.ArrayList;
 import java.util.List;

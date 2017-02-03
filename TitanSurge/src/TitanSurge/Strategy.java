@@ -1,10 +1,10 @@
-package Titan;
+package TitanSurge;
 
 public class Strategy {
 	Player one;
 	
 	
-	Strategy(Player obj){one = obj;}
+	Strategy(Player obj){this.one = obj;}
 	
 	//this method will look for all playable cards in hand
 	//and play the ones with the largest attack first
@@ -12,8 +12,8 @@ public class Strategy {
 	//or the field array is full
 	public void Bruteforce(){
 		for(int i = 0, j = one.getHandlength(); i <j; i +=1){
-			if(one.getCardhand(i).getTimer() <= 0){
-				one.placeCard(one.getCardhand(i));
+			if(one.getHandcard(i).getTimer() <= 0){
+				one.placeCard(one.getHandcard(i));
 			}
 		}
 	}
@@ -41,10 +41,10 @@ public class Strategy {
 	private void playingWallStrat(){
 		int biggest = 0;
 		for(int i = 0; i < one.getHandlength() - 1; i +=1){
-			if(one.getCardhand(biggest).getHealth() < one.getCardhand(i+1).getHealth())
+			if(one.getHandcard(biggest).getHealth() < one.getHandcard(i+1).getHealth())
 				biggest = i + 1;
 			if(i == one.getHandlength() - 1){
-				one.placeCard(one.getCardhand(biggest));
+				one.placeCard(one.getHandcard(biggest));
 				i = 0;
 			}
 		}
@@ -62,7 +62,7 @@ public class Strategy {
 	public int cardsReady(){
 		int total = 0;
 		for(int i = 0; i <one.getHandlength(); i +=1){
-			if(one.getCardhand(i).getTimer() <= 0)
+			if(one.getHandcard(i).getTimer() <= 0)
 				total +=1;
 		}
 		return total;
@@ -78,8 +78,8 @@ public class Strategy {
 		Card[] card = new Card[cardsReady()];
 		int length = 0;
 		for(int i = 0, j = one.getHandlength();i < j; i +=1){
-			if(one.getCardhand(i).getTimer() == 0) 
-				{card[length] = one.getCardhand(i); length +=1;}
+			if(one.getHandcard(i).getTimer() == 0) 
+				{card[length] = one.getHandcard(i); length +=1;}
 		}
 		
 		return card;

@@ -2,7 +2,8 @@ package TitanSurge;
 //Assignment 2 - Game class is the main class for the game. 
 // 2-1-2017
 
-import java.lang.reflect.Field;
+
+import java.util.Random;
 
 public class Game {
 	private int health = 1200;
@@ -44,11 +45,10 @@ public class Game {
 		deck[7] = cardlib.tundratroll();
 		deck[8] = cardlib.flamewyvern();
 		deck[9] = cardlib.orcsoldier();
-		
-		//Check with team lead regarding the noCard card.
-		//deck[10] = Cardlib.nocard();
+
 		
 		decklength = 10; 
+		//shuffle();
 	}
 	
 	//Set Field function 
@@ -80,10 +80,16 @@ public class Game {
 		cementary[8] = cardlib.nocard();
 		cementary[9] = cardlib.nocard();
 	}
-	//Shuffle will be added by team lead. 
-	public void shuffle() {
-		// TODO Auto-generated method stub
-		
+
+	private void shuffle(){
+		Random rnd = new Random();
+		for(int i = decklength - 1; i > 0; i -=1){
+			
+			int a = rnd.nextInt(i + 1);
+			Card b = deck[a];
+			deck[a] = deck[i];
+			deck[i] = b;
+		}
 	}
 
 	//Damage Method used to reduce health
@@ -107,18 +113,21 @@ public class Game {
 	}
 	// Draw top deck function
 	public Card drawTopdeck(){
+		if(decklength > 0){
 		Card a = deck[0];
 		for (int i = 0; i < decklength- 1; i++){
 			deck[i] = deck[i+1];
 		}
 		deck[decklength - 1] = cardlib.nocard();
 		decklength--;
-		return a;
+		return a;} 
+		else return cardlib.nocard();
 	}
 	//Pull a card to hand 
 	public void drawTohand(Card obj){
+		if(obj.getName().equals("No card")==false){
 		hand[handlength]= obj;
-		handlength++;
+		handlength++;}
     }
 	// Placing card
 	public void placeCard(Card obj){
@@ -171,16 +180,39 @@ public class Game {
 	}
 	
 	public void adjustField(){
-		for (int i = 0; i < fieldsize-1; i+=1){
-			if(checkName(field[i]) == false && checkName(field[i+1])==true){
-				field[i] = field[i+1]; field[i+1] = cardlib.nocard();}
 		
-	}}
+		for (int i = 0; i < fieldsize; i+=1){
+			if(checkName(field[i])==true){
+				if(i > 0 && (checkName(field[i-1]) == false)  ){
+					field[i-1] = field[i];
+					field[i] = cardlib.nocard();
+				}}
+				if(checkName(field[i])==false && i <= 3){
+					if(checkName(field[i+1])==true){
+						field[i] = field[i+1];
+						field[i+1] = cardlib.nocard();
+				}
+			}}
+		
+			
+				
+			/**
+			if(checkName(field[i]) == false && checkName(field[i+1])==true){
+				field[i] = field[i+1]; field[i+1] = cardlib.nocard(); }
+			
+			if(checkName(field[i])==true && i>= getFieldlength()){
+				for(int j = 0; j < getFieldlength(); j +=1){
+					if(checkName(field[j]) == false){
+						field[j] = field[i]; field[i] = cardlib.nocard();}
+				}
+			} 
+		*/
+	}
 	// Dead card function to add card to cementary. 
 	public void deadCard(Card obj){
 		if (obj.getHealth() <= 0){
 			cementary[cementarylength]= obj;
-			cementarylength++;
+			cementarylength+=1;
 			for(int i = 0; i < fieldsize; i+=1){
 				if(field[i].getName().equals(obj.getName())){
 					field[i] = cardlib.nocard(); 

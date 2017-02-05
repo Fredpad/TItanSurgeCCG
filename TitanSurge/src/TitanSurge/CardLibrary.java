@@ -1,4 +1,7 @@
 package TitanSurge;
+
+import java.util.Random;
+
 class CardLibrary {
 
 	//FIELDS:
@@ -45,32 +48,31 @@ class CardLibrary {
 			private String name = "Dripfairy";
 			@Override
 			public int getAttack() {
-				// TODO Auto-generated method stub
+			
 				return attack;
 			}
 			@Override
 			public int getTimer() {
-				// TODO Auto-generated method stub
+				
 				return turn_timer;
 			}
 			@Override
 			public int getHealth() {
-				// TODO Auto-generated method stub
 				return health;
 			}
 			@Override
 			public String getName() {
-				// TODO Auto-generated method stub
+			
 				return name;
 			}
 			@Override
 			public void damaged(int n) {
-				// TODO Auto-generated method stub
+				
 				health -= n;
 			}
 			@Override
 			public void ability() {
-				// TODO Auto-generated method stub
+				
 				
 			}
 			@Override
@@ -80,7 +82,7 @@ class CardLibrary {
 			}
 		
 		}
-		//Randomly damages an enemy card on the field for 50 before it attacks 
+		//Randomly damages an enemy card on the field for 50 when played 
 		public class Flamewyvern implements Card{
 			//FIELDS:
 			private int attack = 170;
@@ -114,7 +116,9 @@ class CardLibrary {
 			}
 			@Override
 			public void ability() {
-				// TODO Auto-generated method stub
+				Random rand = new Random();
+				int n = rand.nextInt(one.enemy.getFieldlength()); 
+				one.enemy.getFieldcard(n).damaged(50);
 				
 			}
 			@Override
@@ -133,37 +137,37 @@ class CardLibrary {
 			private String name = "Lion";
 			@Override
 			public int getAttack() {
-				// TODO Auto-generated method stub
+				
 				return attack;
 			}
 			@Override
 			public int getTimer() {
-				// TODO Auto-generated method stub
+				
 				return turn_timer;
 			}
 			@Override
 			public int getHealth() {
-				// TODO Auto-generated method stub
+				
 				return health;
 			}
 			@Override
 			public String getName() {
-				// TODO Auto-generated method stub
+				
 				return name;
 			}
 			@Override
 			public void damaged(int n) {
-				// TODO Auto-generated method stub
+			
 				health -= n;
 			}
 			@Override
 			public void ability() {
-				// TODO Auto-generated method stub
+			
 				
 			}
 			@Override
 			public void updateTimer() {
-				// TODO Auto-generated method stub
+			
 				turn_timer -= 1;
 			}
 		}
@@ -202,7 +206,10 @@ class CardLibrary {
 			}
 			@Override
 			public void ability() {
-				// TODO Auto-generated method stub
+				Random ran = new Random();
+				int n = ran.nextInt(one.enemy.getFieldlength());
+				one.enemy.getFieldcard(n).damaged(20);
+				//IMPLEMENT A SECOND POISEN EFFECT DURING NEXT TURN
 				
 			}
 			@Override
@@ -242,7 +249,7 @@ class CardLibrary {
 			@Override
 			public void damaged(int n) {
 				// TODO Auto-generated method stub
-				health -= n;
+				health -= (60 - n);
 			}
 			@Override
 			public void ability() {
@@ -308,7 +315,7 @@ class CardLibrary {
 			private String name = "Snow Oak Fiary";
 			@Override
 			public int getAttack() {
-				// TODO Auto-generated method stub
+				
 				return attack;
 			}
 			@Override
@@ -333,7 +340,7 @@ class CardLibrary {
 			}
 			@Override
 			public void ability() {
-				// TODO Auto-generated method stub
+				
 				
 			}
 			@Override

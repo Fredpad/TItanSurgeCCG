@@ -1,10 +1,17 @@
 package TitanSurge;
+
+import java.util.List;
+import java.util.Scanner;
+
 public class Player extends Game {
 
-	//FIELDS:
+	
 	Player enemy;
-	Strategy strats = new Strategy(this);
-
+	Move move=new Move(this);
+	List<String> choices; 
+	String name;
+	boolean stratchoosed = false;
+	
 	//Strat is needed to pass information about the player and the game to use the 
 	//strategies. It is not used at all in this class 
 	Strategy strat = new Strategy(this);
@@ -13,20 +20,51 @@ public class Player extends Game {
 	Player(){
 		cardlib.readyLib(this);
 	}
-		
+	
+	//new
+	public void setName(String word){name = word;}
+	//new
+	public String getName(){return name;}
 
 	public void setEnemy(Player obj){
 		enemy = obj;
 	}
 
+	public void playTurn(){strat.playStrategy();}
+	
 	public void newTurn(){
 		updateCardtimers();
 		draw();
-	}
+
+		adjustField();
+		//for testing purposes, it is set by default
+		//move.choices("Brute Force");
 		
-	private void updateCardtimers(){
-		//if there are cards in the hand, it reduces each cards turn_timer by 1 
-		//if there are cards in the enemyhand, reduce the turn_timer in the enemy cards by 1
+	
+		if(stratchoosed ==false){
+			stratchoosed = true;
+			chooseStrategy();
+		}
+		
+	}
+	
+	//new
+	public void chooseStrategy(){
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Brute Force strategy is about playing the strongest cards first as soon as"
+				+ " possible");
+		System.out.println("Wall strategy is about playing cards with strong defense first to wittle away"
+				+" at the enemy"); 
+		System.out.println("\n Which strategy do you want to set: Brute Force or Wall");
+		String choice = sc.nextLine();
+		while(choice.equalsIgnoreCase("Brute Force")==false && choice.equalsIgnoreCase("Wall")==false){
+			System.out.println("That is not a valid input. Please choose: Brute Force or Wall");
+			choice = sc.nextLine();
+		}
+		move.choices(choice); 
+	}
+	public void updateCardtimers(){
 		
 		for (int i = 0; i < getHandlength(); i+=1){
 			getHandcard(i).updateTimer(); 
@@ -51,9 +89,27 @@ public class Player extends Game {
 			if (enemy.getFieldcard(i).getName().equals("No card") ){
 				enemy.directDamage(getFieldcard(i).getAttack()); 
 			}
-			if(!enemy.getFieldcard(i).getName().equals("No card")){
+			if(enemy.getFieldcard(i).getName().equals("No card") == false){
 				enemy.getFieldcard(i).damaged(getFieldcard(i).getAttack()); 
 				enemy.deadCard(enemy.getFieldcard(i));
 			}
 		}
-}}
+		
+}
+	
+	public void rotation(){
+		 newTurn();
+         playTurn();
+         //printboard();
+         //Thread.sleep(3000);
+         attack();
+	}
+
+	public void printboard(){
+		System.out.println(name);
+		for(int i = 0; i < 5; i+=1){
+			System.out.println(getFieldcard(i).getName() + " " + getFieldcard(i).getHealth());
+		}
+		System.out.println();
+	}
+}

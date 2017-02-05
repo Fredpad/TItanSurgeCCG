@@ -7,9 +7,10 @@ import org.junit.Test;
 public class TestTitan {
 
 	
-	
 	@Test
 	public void testCardMovement(){
+		
+		//WHILE THE SHUFFLE METHOD WAS TURNED OFF
 		Player one = new Player();
 		
 		assertEquals(one.getDeck(0).getName(), "Lion" );
@@ -74,24 +75,18 @@ public class TestTitan {
 		one.deadCard(one.getFieldcard(2)); 
 		one.deadCard(one.getFieldcard(3)); 
 		one.deadCard(one.getFieldcard(4)); 
-		System.out.println(one.getFieldlength());
 		one.adjustField();
-		
-		System.out.println( "\n" +one.getFieldcard(0).getName());
-		System.out.println(one.getFieldcard(1).getName());
-		System.out.println(one.getFieldcard(2).getName());
-		System.out.println(one.getFieldcard(3).getName());
-		System.out.println(one.getFieldcard(4).getName());
-		
-		one.getFieldcard(0).damaged(150);
-		one.getFieldcard(1).damaged(150);
-		one.getFieldcard(2).damaged(150);
-		one.getFieldcard(3).damaged(150);
-		one.getFieldcard(4).damaged(150);  
+
+		one.getFieldcard(0).damaged(180);
+		one.getFieldcard(1).damaged(180);
+		one.getFieldcard(2).damaged(180);
+		one.getFieldcard(3).damaged(180);
+		one.getFieldcard(4).damaged(180);  
 		one.deadCard(one.getFieldcard(0)); 
 		one.deadCard(one.getFieldcard(1)); 
 		one.deadCard(one.getFieldcard(2)); 
 		one.deadCard(one.getFieldcard(3)); 
+		one.adjustField();
 		
 		assertEquals(one.getFieldcard(0).getName(), "No card");
 		assertEquals(one.getFieldcard(1).getName(), "No card");
@@ -117,7 +112,6 @@ public class TestTitan {
 		assertNotEquals(one.getHandcard(1).getName(), "No card");
 		assertNotEquals(one.getHandcard(2).getName(), "No card");
 		assertNotEquals(one.getHandcard(3).getName(), "No card");
-		System.out.println(one.getFieldlength());
 		one.placeCard(one.getHandcard(0));
 		one.placeCard(one.getHandcard(0));
 		one.placeCard(one.getHandcard(0));
@@ -154,14 +148,38 @@ public class TestTitan {
 		assertNotEquals(one.getCementaryCard(8).getName(), "No card");
 		assertNotEquals(one.getCementaryCard(9).getName(), "No card");
 		
+		
 		}
 	
-	@Test
+	//@Test
 	public void testDriver(){
 		Player one = new Player();
 		Player two = new Player();
 		one.setEnemy(two); two.setEnemy(one); 
+		one.setName("Player one"); two.setName("Player Two");
 		
+		one.rotation();
+		assertEquals("Lion", one.getHandcard(0).getName());
+		two.rotation();
+		assertEquals("Lion", two.getHandcard(0).getName());
+		
+		one.rotation();
+		assertEquals("Lion", one.getFieldcard(0).getName());
+		assertEquals(1, one.getFieldlength());
+		assertEquals("Spider", one.getHandcard(0).getName());
+		
+		two.rotation();
+		assertEquals("Lion", two.getFieldcard(0).getName());
+		assertEquals("Spider", two.getHandcard(0).getName());
+		assertEquals(20, one.getFieldcard(0).getHealth());
+		assertEquals(1, two.enemy.getHandcard(0).getTimer());
+		assertEquals("Spider", one.getHandcard(0).getName());
+		
+		one.rotation();
+		assertEquals(2, one.getFieldlength());
+		assertEquals("Spider", one.getFieldcard(1).getName());
+		assertEquals("Swamp Wolf", one.getHandcard(0).getName());
+		assertEquals(20, two.getFieldcard(0).getHealth());
 	}
 
 }

@@ -2,18 +2,28 @@ package TitanSurge;
 
 public class Strategy {
 	Player one;
-	
+	String setStrategy;
 	
 	Strategy(Player obj){this.one = obj;}
+	
+	public void setStrategy(String word){setStrategy = word;}
+	
+	public void playStrategy(){
+		if(setStrategy.equalsIgnoreCase("Brute Force"))
+			Bruteforce();
+		if(setStrategy.equalsIgnoreCase("Wall"))
+			Wall();
+	}
 	
 	//this method will look for all playable cards in hand
 	//and play the ones with the largest attack first
 	//until all playable cards from hand are played 
 	//or the field array is full
 	public void Bruteforce(){
-		for(int i = 0, j = one.getHandlength(); i <j; i +=1){
+		for(int i = 0; i <one.getHandlength(); i +=1){
 			if(one.getHandcard(i).getTimer() <= 0){
 				one.placeCard(one.getHandcard(i));
+				i = -1;
 			}
 		}
 	}
@@ -33,22 +43,23 @@ public class Strategy {
 		else if(enemyTotalAttack() > one.getHealth())
 			playingWallStrat();
 		//if enemy has 2 or more cards than u on field
-		else if(one.enemy.getFieldlength() >= 2)
+		else if(fieldDifference() >= 2)
 			playingWallStrat();
 	}
 	
 	//plays cards with biggest health first
 	private void playingWallStrat(){
 		int biggest = 0;
-		for(int i = 0; i < one.getHandlength() - 1; i +=1){
-			if(one.getHandcard(biggest).getHealth() < one.getHandcard(i+1).getHealth())
-				biggest = i + 1;
-			if(i == one.getHandlength() - 1){
-				one.placeCard(one.getHandcard(biggest));
-				i = 0;
-			}
+		int loops = cardsReady();
+		
+		for(int l = 0; l < loops; l+=1){
+		for(int i = 0; i < one.getHandlength(); i +=1){
+			if(one.getHandcard(biggest).getTimer() <= 0){
+				if(one.getHandcard(biggest).getHealth() < one.getHandcard(i+1).getHealth())
+					biggest = i + 1;}
 		}
-	}
+		one.placeCard(one.getHandcard(biggest));
+	}}
 	
 	public int enemyTotalAttack(){
 		int total = 0;

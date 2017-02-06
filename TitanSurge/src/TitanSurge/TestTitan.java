@@ -7,7 +7,7 @@ import org.junit.Test;
 public class TestTitan {
 
 	
-	@Test
+	//@Test
 	public void testCardMovement(){
 		
 		//WHILE THE SHUFFLE METHOD WAS TURNED OFF
@@ -180,6 +180,48 @@ public class TestTitan {
 		assertEquals("Spider", one.getFieldcard(1).getName());
 		assertEquals("Swamp Wolf", one.getHandcard(0).getName());
 		assertEquals(20, two.getFieldcard(0).getHealth());
+	}
+	
+	@Test
+	public void testObserver(){
+		Player one = new Player();
+		Player two = new Player();
+		one.setEnemy(two); two.setEnemy(one); 
+		
+		one.addFieldcard(one.cardlib.lion());
+		one.addFieldcard(one.cardlib.spider());
+		one.addFieldcard(one.cardlib.flamewyvern());
+		one.addFieldcard(one.cardlib.dripfairy());
+		
+		one.watcher.recordConditions();
+		
+		one.getFieldcard(0).damaged(180);
+		one.getFieldcard(1).damaged(180);
+		one.getFieldcard(2).damaged(180);
+		one.deadCard(one.getFieldcard(0));
+		one.deadCard(one.getFieldcard(1));
+		one.deadCard(one.getFieldcard(2));
+		one.adjustField();
+		assertEquals("Lion", one.getFieldcard(0).getName());
+		assertEquals("Flame Wyvern", one.getFieldcard(1).getName());
+	
+		one.watcher.hasChanged();
+		one.getFieldcard(2).ability();
+		assertEquals(120, one.getFieldcard(1).getHealth());
+		
+		one.addFieldcard(one.cardlib.swampwolf());
+		one.addFieldcard(one.cardlib.snowoakfairy());
+		one.watcher.recordConditions();
+		
+		one.getFieldcard(0).damaged(10);
+		one.getFieldcard(1).damaged(20);
+		one.getFieldcard(2).damaged(30);
+		one.getFieldcard(3).damaged(40);
+		one.getFieldcard(4).damaged(50);
+		one.watcher.hasChanged();
+		one.getFieldcard(2).ability();
+		
+		assertEquals(180, one.getFieldcard(4).getHealth());
 	}
 
 }

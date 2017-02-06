@@ -26,4 +26,10 @@ public interface Card {
 	public void updateTimer();
 		//when define, reduces the turn_timer by 1
 
+	public void setTarget(String cardname);
+	
+	public String getTarget();
+	
+	public void getHealed(int i);
+
 }

@@ -14,7 +14,7 @@ public class Game {
 	private Card[] hand = new Card[handsize]; 
 	private Card[] cementary = new Card[cementarysize];
 	//need to be initializ 
-	protected CardLibrary cardlib = new CardLibrary(); 
+	public CardLibrary cardlib = new CardLibrary(); 
 	
 	public Card getCementaryCard(int i){return cementary[i];}
 	
@@ -249,6 +249,10 @@ public class Game {
 	// getter for cementary length.
 	public int getCementarylength() {
 		return cementarylength;
+	}
+	
+	public void getHealed(int i){
+		health+=i;
 	}
 
 }

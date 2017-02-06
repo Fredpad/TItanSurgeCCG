@@ -11,6 +11,7 @@ public class Player extends Game {
 	List<String> choices; 
 	String name;
 	boolean stratchoosed = false;
+	BattleWatch watcher = new BattleWatch(this); 
 	
 	//Strat is needed to pass information about the player and the game to use the 
 	//strategies. It is not used at all in this class 
@@ -37,6 +38,8 @@ public class Player extends Game {
 		draw();
 
 		adjustField();
+		enemy.watcher.recordConditions();
+		watcher.hasChanged();
 		//for testing purposes, it is set by default
 		//move.choices("Brute Force");
 		
@@ -86,6 +89,7 @@ public class Player extends Game {
 		of the attacking card, then call the deadCard() method to check if the enemycard is destroyed
 */
 		for (int i = 0; i < getFieldlength(); i++){
+			getFieldcard(i).ability();
 			if (enemy.getFieldcard(i).getName().equals("No card") ){
 				enemy.directDamage(getFieldcard(i).getAttack()); 
 			}
@@ -94,6 +98,7 @@ public class Player extends Game {
 				enemy.deadCard(enemy.getFieldcard(i));
 			}
 		}
+		
 		
 }
 	
@@ -107,7 +112,7 @@ public class Player extends Game {
 
 	public void printboard(){
 		System.out.println(name);
-		for(int i = 0; i < 5; i+=1){
+		for(int i = 0; i < getFieldlength(); i+=1){
 			System.out.println(getFieldcard(i).getName() + " " + getFieldcard(i).getHealth());
 		}
 		System.out.println();

@@ -4,9 +4,9 @@ import java.util.Random;
 
 class CardLibrary {
 
-	//FIELDS:
+
 	Player one;
-	//METHODS: 
+
 		
 	public Card dripfairy(){ return new Dripfairy();}
 		
@@ -40,12 +40,30 @@ class CardLibrary {
 	//The other values of the fields in the nested classes are not finalized right now besides name
 		
 		//Has the ability to heal ally card that took the most damage in the last turn before it attacks 
+	/**
+	 * Dripfairy is used in part with an observer class. The observer class, defined in BattleWatcher class
+	 * tracks the health, placement, and damage taken by an ally card. The one that has take the most damaged
+	 * is then passed to dripfairy. Dripfairy, before it attacks, heals the card it was given by 50.
+	 * Observer was chosen because it needs to be aware of changes being done in the game so it can use it's 
+	 * feature.
+	 * */
 		public class Dripfairy implements Card{
 			//FIELDS:
 			private int attack = 80;
 			private int health = 170;
 			private int turn_timer = 2; 
 			private String name = "Dripfairy";
+			private String toHeal = "";
+			private Player ref = one; 
+			
+			@Override
+			public void setTarget(String name){
+				toHeal = name;
+			}
+			
+			public String getTarget(){return toHeal;}
+			
+			
 			@Override
 			public int getAttack() {
 			
@@ -70,15 +88,27 @@ class CardLibrary {
 				
 				health -= n;
 			}
+			
 			@Override
 			public void ability() {
 				
+				for(int i = 0; i < 5; i+=1){
+					if(one.getFieldcard(i).getName().equals(toHeal)){
+						one.getFieldcard(i).getHealed(50);
+					}
+				}
 				
 			}
 			@Override
 			public void updateTimer() {
-				// TODO Auto-generated method stub
 				turn_timer -= 1;
+			}
+
+
+			@Override
+			public void getHealed(int i) {
+				health += i;
+				
 			}
 		
 		}
@@ -126,6 +156,21 @@ class CardLibrary {
 				// TODO Auto-generated method stub
 				turn_timer -= 1;
 			}
+			@Override
+			public void setTarget(String cardname) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void getHealed(int i) {
+				health+=i;
+				
+			}
+			@Override
+			public String getTarget() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		}
 		
 		//90% of damage it does to an enemy card is dealt to the enemy players health 
@@ -157,7 +202,7 @@ class CardLibrary {
 			}
 			@Override
 			public void damaged(int n) {
-			
+				health+= 60;
 				health -= n;
 			}
 			@Override
@@ -169,6 +214,20 @@ class CardLibrary {
 			public void updateTimer() {
 			
 				turn_timer -= 1;
+			}
+			@Override
+			public void setTarget(String cardname) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void getHealed(int i) {
+				health+=i;
+			}
+			@Override
+			public String getTarget() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		}
 
@@ -217,6 +276,21 @@ class CardLibrary {
 				// TODO Auto-generated method stub
 				turn_timer -= 1;
 			}
+			@Override
+			public void setTarget(String cardname) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void getHealed(int i) {
+				health+=i;
+				
+			}
+			@Override
+			public String getTarget() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		}
 		
 		//Reduces damage it takes from a normal attack by 60
@@ -261,6 +335,21 @@ class CardLibrary {
 				// TODO Auto-generated method stub
 				turn_timer -= 1;
 			}
+			@Override
+			public void setTarget(String cardname) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void getHealed(int i) {
+				health+=i;
+				
+			}
+			@Override
+			public String getTarget() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		}
 		
 		public class Swampwolf implements Card{
@@ -303,6 +392,21 @@ class CardLibrary {
 			public void updateTimer() {
 				// TODO Auto-generated method stub
 				turn_timer -= 1;
+			}
+			@Override
+			public void setTarget(String cardname) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void getHealed(int i) {
+				health+=i;
+				
+			}
+			@Override
+			public String getTarget() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		}
 		
@@ -348,6 +452,21 @@ class CardLibrary {
 				// TODO Auto-generated method stub
 				turn_timer -= 1;
 			}
+			@Override
+			public void setTarget(String cardname) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void getHealed(int i) {
+				health+=i;
+				
+			}
+			@Override
+			public String getTarget() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		}
 		
 		//40% chance to return to hand when killed on the field. To the deck if hand is full
@@ -391,6 +510,20 @@ class CardLibrary {
 			public void updateTimer() {
 				// TODO Auto-generated method stub
 				turn_timer -= 1;
+			}
+			@Override
+			public void setTarget(String cardname) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void getHealed(int i) {
+				health+=i;
+			}
+			@Override
+			public String getTarget() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		}
 		
@@ -436,6 +569,20 @@ class CardLibrary {
 				// TODO Auto-generated method stub
 				turn_timer -= 1;
 			}
+			@Override
+			public void setTarget(String cardname) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void getHealed(int i) {
+				health+=i;
+			}
+			@Override
+			public String getTarget() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		}
 		
 		//Heals the player by 250 health before it attacks 
@@ -473,13 +620,27 @@ class CardLibrary {
 			}
 			@Override
 			public void ability() {
-				// TODO Auto-generated method stub
+				one.getHealed(100);
 				
 			}
 			@Override
 			public void updateTimer() {
 				// TODO Auto-generated method stub
 				turn_timer -= 1;
+			}
+			@Override
+			public void setTarget(String cardname) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void getHealed(int i) {
+				health+=i;
+			}
+			@Override
+			public String getTarget() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 			
 			
@@ -530,6 +691,24 @@ class CardLibrary {
 			public void updateTimer() {
 				// TODO Auto-generated method stub
 				
+			}
+
+			@Override
+			public void setTarget(String cardname) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void getHealed(int i) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public String getTarget() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 
 			

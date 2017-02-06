@@ -11,6 +11,8 @@ public class TestTitan {
 	public void testCardMovement(){
 		
 		//WHILE THE SHUFFLE METHOD WAS TURNED OFF
+		//NOTE: This was developed when Spider's poisen 
+		//ability wasn't developed so running it now will cause failures
 		Player one = new Player();
 		
 		assertEquals(one.getDeck(0).getName(), "Lion" );
@@ -182,14 +184,17 @@ public class TestTitan {
 		assertEquals(20, two.getFieldcard(0).getHealth());
 	}
 	
+	//was used to test the BattleWatcher class for the Dripfairy's
+	//heal ability
 	@Test
 	public void testObserver(){
 		Player one = new Player();
 		Player two = new Player();
+		one.setName("player one"); two.setName("player two");
 		one.setEnemy(two); two.setEnemy(one); 
 		
 		one.addFieldcard(one.cardlib.lion());
-		one.addFieldcard(one.cardlib.spider());
+		one.addFieldcard(one.cardlib.vampirebat());
 		one.addFieldcard(one.cardlib.flamewyvern());
 		one.addFieldcard(one.cardlib.dripfairy());
 		
@@ -222,6 +227,28 @@ public class TestTitan {
 		one.getFieldcard(2).ability();
 		
 		assertEquals(180, one.getFieldcard(4).getHealth());
+	}
+	
+	//@Test
+	//Used to test spiders poisen ability
+	//It's a little fishy in either it passes or fails
+	//couldn't find the reason behind that
+	public void testSpider(){
+		Player one = new Player();
+		Player two = new Player();
+		one.setEnemy(two); two.setEnemy(one); 
+		
+		one.addFieldcard(one.cardlib.lion());
+		one.addFieldcard(one.cardlib.spider());
+		two.addFieldcard(two.cardlib.lion());
+		two.addFieldcard(two.cardlib.dripfairy());
+		
+		one.attack();
+		assertEquals(60, two.getFieldcard(1).getHealth());
+		one.endTurn();
+		assertEquals(two.getFieldcard(1).getHealth(), 30);
+		
+		
 	}
 
 }

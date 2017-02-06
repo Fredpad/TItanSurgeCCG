@@ -31,5 +31,9 @@ public interface Card {
 	public String getTarget();
 	
 	public void getHealed(int i);
+	
+	public void setPoisened();
+	
+	public void Poisen();
 
 }

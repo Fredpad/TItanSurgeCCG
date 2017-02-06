@@ -20,10 +20,10 @@ public abstract class Duel {
             for (Player player : players) {
                 player.newTurn();
                 player.playTurn();
-                player.printboard();
-                Thread.sleep(1000);
+                Thread.sleep(1250);
                 player.attack();
-           
+                player.printboard();
+                player.endTurn();
             }
         }
         return winner;
@@ -34,13 +34,6 @@ public abstract class Duel {
      * @return winning Player if game is over, null if not
      */
     protected abstract Player findWinner();
-    
-
-    /**
-     * Run this code at the end of a player's turn
-     */
-    protected void afterTurn(Player player, Player winner) {
-    	
-    }
+   
     
 }

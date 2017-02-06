@@ -14,6 +14,8 @@ public class Move {
 	
 	Move(Player obj){one = obj;}
 	
+	//The only optoin the player has in this game, due to the simplicity of it
+	//by design, is the strategy
 	public void choices(String word){
 		one.strat.setStrategy(word);
 	}

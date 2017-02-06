@@ -18,6 +18,8 @@ public class Game {
 	
 	public Card getCementaryCard(int i){return cementary[i];}
 	
+	//sets the deck of each player while filling the other array's with empty card objects
+	//to prevent null pointer error
 	public Game(){
 		setDeck();
 		shuffle();
@@ -25,14 +27,10 @@ public class Game {
 		setField();
 		setCementary();
 	}
-
-
-	public void setLibrary(Player play){
-		
-	}
 	
-	//TEST method
+	//TEST method used in junit
 	public Card getDeck(int i){return deck[i];}
+	
 	
 	public void setDeck() {
 		deck[0] = cardlib.lion(); 
@@ -48,7 +46,6 @@ public class Game {
 
 		
 		decklength = 10; 
-		//shuffle();
 	}
 	
 	//Set Field function 
@@ -81,6 +78,7 @@ public class Game {
 		cementary[9] = cardlib.nocard();
 	}
 
+	//Randomly shuffles the deck
 	private void shuffle(){
 		Random rnd = new Random();
 		for(int i = decklength - 1; i > 0; i -=1){
@@ -96,21 +94,25 @@ public class Game {
 	public void directDamage(int damage){
 		health = health - damage;
 	}
+	
 	//getfieldcard method	
 	public Card getFieldcard(int i){
 		 return field[i];
 		
 	}
+	
 	//GetHand method
 	public Card getHandcard(int i){
 		return hand[i];
 		
 	}
+	
 	// draw method
 	public void draw(){
 		
 		drawTohand(drawTopdeck());
 	}
+	
 	// Draw top deck function
 	public Card drawTopdeck(){
 		if(decklength > 0){
@@ -123,23 +125,27 @@ public class Game {
 		return a;} 
 		else return cardlib.nocard();
 	}
+	
 	//Pull a card to hand 
 	public void drawTohand(Card obj){
 		if(obj.getName().equals("No card")==false){
 		hand[handlength]= obj;
 		handlength++;}
     }
+	
 	// Placing card
 	public void placeCard(Card obj){
 	//calls these methods in the following order
 	addFieldcard(obj);
 	removeHandcard(obj);
 	}
+	
 	// Add field card function 
 	public void addFieldcard(Card obj){
 		field[fieldlength] = obj;
 		fieldlength+=1;
 	}
+	
 	// Function to remove card from Hand.
 	public void removeHandcard(Card obj){
 		
@@ -154,6 +160,7 @@ public class Game {
 			}
 		}
 	}
+	
 	// adjusting the filed function. 
 	public boolean checkName(Card obj){
 		if(obj.getName().equals("Dripfairy"))
@@ -178,7 +185,8 @@ public class Game {
 			return true;
 		else return false;
 	}
-	
+	//when a spot is left open once a card is destroyed
+	//remaining cards on the field must slide to fill it
 	public void adjustField(){
 		
 		for (int i = 0; i < fieldsize; i+=1){
@@ -208,6 +216,7 @@ public class Game {
 			} 
 		*/
 	}
+	
 	// Dead card function to add card to cementary. 
 	public void deadCard(Card obj){
 		if (obj.getHealth() <= 0){
@@ -220,7 +229,6 @@ public class Game {
 			}
 			fieldlength -=1;
 		}
-		// function call for adjust field. 
 		
 	}
 	
@@ -251,6 +259,7 @@ public class Game {
 		return cementarylength;
 	}
 	
+	//used to heal player if card calls for it
 	public void getHealed(int i){
 		health+=i;
 	}

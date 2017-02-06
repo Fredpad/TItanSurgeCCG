@@ -1,5 +1,7 @@
 package TitanSurge;
 
+//Used to watch and record the cards on the board to find 
+//which one took the most damage to get healed by Dripfairy
 public class BattleWatch implements Subject{
 	Player one;
 	private Observer watch;
@@ -15,10 +17,12 @@ public class BattleWatch implements Subject{
 		}
 	}
 	
+	//references the player it belongs to
 	public void setPlayer(Player player){one = player;}
 	
 	public void setObservers(Observer obs){watch = obs;}
 	
+	//used for testing and debugging
 	public void print(){
 		for(int i = 0; i < one.getFieldlength(); i+=1){
 			System.out.println(cardNames[i] + " Damaged= " + damaged[i]);
@@ -28,6 +32,7 @@ public class BattleWatch implements Subject{
 		System.out.println();
 	}
 	
+	//records the conditions of the cards before they get damaged
 	public void recordConditions(){
 		
 		
@@ -41,9 +46,10 @@ public class BattleWatch implements Subject{
 			cardNames[i] = one.getFieldcard(i).getName();}
 		}
 		
-		//print();
 	}
 	
+	//calculates all damage and changes to teh cards and gives the one that recieved
+	//the most damaged to dripfairy
 	public void hasChanged(){
 		for(int i = 0; i< one.getFieldlength(); i+=1){
 			if(one.getFieldcard(i).getName().equals(cardNames[i])==false){
@@ -67,6 +73,8 @@ public class BattleWatch implements Subject{
 		
 		notifyObservers();}
 	
+	
+	//passes on the card that needs healing to dripfairy
 	public void notifyObservers(){
 		int toheal = 0;
 		
@@ -83,11 +91,9 @@ public class BattleWatch implements Subject{
 	}}
 
 	@Override
-	public void removeObservers(Observer obs) {
-		
-		
-	}
-
+	public void removeObservers(Observer obs) {}
+	
+	//resets the lists 
 	@Override
 	public void clearChanged() {
 		for(int i = 0; i < 5; i +=1){

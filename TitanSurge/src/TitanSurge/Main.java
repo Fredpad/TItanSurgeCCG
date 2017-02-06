@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
+		//initialize the two players and set each other as the opponents
 		Player one = new Player();
 		Player two = new Player(); 
 		one.setEnemy(two);two.setEnemy(one);
@@ -18,7 +19,7 @@ public class Main {
 		PlayGame match = new PlayGame(players);
 		
 		Player winner = match.play();
-		System.out.println(winner.getName());
+		System.out.println("WINNER: " + winner.getName());
 		
 
 	}

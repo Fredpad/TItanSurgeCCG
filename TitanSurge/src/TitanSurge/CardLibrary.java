@@ -33,13 +33,8 @@ class CardLibrary {
 	public void readyLib(Player play){this.one = play;}
 	
 	//NEST CLASSES:
-	//The abilities of the cards are commented ontop of the class. No need to code the abilities right now since
-	//everyone in the team has to code 3 of the abilities, as instructed by the homework 
-	//Make sure to have every method from the Card interface within the following classes. 
-	//As of right now, the ability method does not have to be defined
-	//The other values of the fields in the nested classes are not finalized right now besides name
-		
-		//Has the ability to heal ally card that took the most damage in the last turn before it attacks 
+	//The cards with abilities are commented ontop of the class. 
+	
 	/**
 	 * Dripfairy is used in part with an observer class. The observer class, defined in BattleWatcher class
 	 * tracks the health, placement, and damage taken by an ally card. The one that has take the most damaged
@@ -55,6 +50,7 @@ class CardLibrary {
 			private String name = "Dripfairy";
 			private String toHeal = "";
 			private Player ref = one; 
+			private int poisened = 0;
 			
 			@Override
 			public void setTarget(String name){
@@ -94,6 +90,7 @@ class CardLibrary {
 				
 				for(int i = 0; i < 5; i+=1){
 					if(one.getFieldcard(i).getName().equals(toHeal)){
+						System.out.println(one.getName() +"'s Dripfairy is Healing: "+toHeal);
 						one.getFieldcard(i).getHealed(50);
 					}
 				}
@@ -110,6 +107,26 @@ class CardLibrary {
 				health += i;
 				
 			}
+			
+			//If poisened, then damaged is taken from the health
+			@Override
+			public void Poisen() {
+				if(poisened > 0){
+					health-=30;
+					poisened -=1;
+					}
+			}
+
+			//If newly poisened, sets count for 2 turns, increased by 2
+			//if poisend again
+			@Override
+			public void setPoisened() {
+				if(poisened <=0)
+					poisened =2;
+				else
+					poisened +=2;
+				
+			}
 		
 		}
 		//Randomly damages an enemy card on the field for 50 when played 
@@ -119,46 +136,43 @@ class CardLibrary {
 			private int health = 250;
 			private int turn_timer = 4;
 			private String name ="Flame Wyvern";
+			private int poisened = 0;
+			
 			@Override
 			public int getAttack() {
-				// TODO Auto-generated method stub
 				return attack;
 			}
 			@Override
 			public int getTimer() {
-				// TODO Auto-generated method stub
 				return turn_timer;
 			}
 			@Override
 			public int getHealth() {
-				// TODO Auto-generated method stub
 				return health;
 			}
 			@Override
 			public String getName() {
-				// TODO Auto-generated method stub
 				return name;
 			}
 			@Override
 			public void damaged(int n) {
-				// TODO Auto-generated method stub
 				health -= n;
 			}
+			
 			@Override
 			public void ability() {
+				if(one.enemy.getFieldlength()> 0){
 				Random rand = new Random();
 				int n = rand.nextInt(one.enemy.getFieldlength()); 
-				one.enemy.getFieldcard(n).damaged(50);
+				one.enemy.getFieldcard(n).damaged(50);}
 				
 			}
 			@Override
 			public void updateTimer() {
-				// TODO Auto-generated method stub
 				turn_timer -= 1;
 			}
 			@Override
 			public void setTarget(String cardname) {
-				// TODO Auto-generated method stub
 				
 			}
 			@Override
@@ -168,18 +182,33 @@ class CardLibrary {
 			}
 			@Override
 			public String getTarget() {
-				// TODO Auto-generated method stub
 				return null;
+			}
+			@Override
+			public void Poisen() {
+				if(poisened > 0){
+					health-=30;
+					poisened -=1;
+					}
+				
+			}
+			@Override
+			public void setPoisened() {
+				if(poisened <=0)
+					poisened =2;
+				else
+					poisened +=2;
 			}
 		}
 		
-		//90% of damage it does to an enemy card is dealt to the enemy players health 
+		//reduces damage from a regular attack by 60
 		public class Lion implements Card{
-			//FIELDS:
 			private int attack =160;
 			private int health= 180;
 			private int turn_timer = 2;
 			private String name = "Lion";
+			private int poisened = 0;
+			
 			@Override
 			public int getAttack() {
 				
@@ -229,56 +258,67 @@ class CardLibrary {
 				// TODO Auto-generated method stub
 				return null;
 			}
+			@Override
+			public void Poisen() {
+				if(poisened > 0){
+					health-=30;
+					poisened -=1;
+					}
+				
+			}
+			@Override
+			public void setPoisened() {
+				if(poisened <=0)
+					poisened =2;
+				else
+					poisened +=2;
+			}
 		}
 
-		//Before it attacks, randomly damages an enemy card on the field for 20, and it takes 20 more damage at the end of the next turn 
+		//Before it attacks, randomly damages an enemy card on the field for 20, 
+		//and it takes 20 more damage at the end of the next turn 
 		public class Spider implements Card{
 			//FIELDS:
 			private int attack = 110;
 			private int health = 180;
 			private int turn_timer = 2;
 			private String name = "Spider";
+			private int poisened = 0;
+			
 			@Override
 			public int getAttack() {
-				// TODO Auto-generated method stub
 				return attack;
 			}
 			@Override
 			public int getTimer() {
-				// TODO Auto-generated method stub
 				return turn_timer;
 			}
 			@Override
 			public int getHealth() {
-				// TODO Auto-generated method stub
 				return health;
 			}
 			@Override
 			public String getName() {
-				// TODO Auto-generated method stub
 				return name;
 			}
 			@Override
 			public void damaged(int n) {
-				// TODO Auto-generated method stub
 				health -= n;
 			}
 			@Override
 			public void ability() {
+				if(one.enemy.getFieldlength() > 0){
 				Random ran = new Random();
 				int n = ran.nextInt(one.enemy.getFieldlength());
-				one.enemy.getFieldcard(n).damaged(20);
-				//IMPLEMENT A SECOND POISEN EFFECT DURING NEXT TURN
+				one.addPoisened(one.enemy.getFieldcard(n));}
 				
 			}
 			@Override
 			public void updateTimer() {
-				// TODO Auto-generated method stub
 				turn_timer -= 1;
 			}
 			@Override
 			public void setTarget(String cardname) {
-				// TODO Auto-generated method stub
 				
 			}
 			@Override
@@ -288,56 +328,64 @@ class CardLibrary {
 			}
 			@Override
 			public String getTarget() {
-				// TODO Auto-generated method stub
 				return null;
+			}
+			@Override
+			public void Poisen() {
+				if(poisened > 0){
+					health-=30;
+					poisened -=1;
+					}
+				
+			}
+			@Override
+			public void setPoisened() {
+				if(poisened <=0)
+					poisened =2;
+				else
+					poisened +=2;
 			}
 		}
 		
-		//Reduces damage it takes from a normal attack by 60
 		public class Orcsoldier implements Card{
 			//FIELDS:
 			private int attack = 120;
 			private int health = 150;
 			private int turn_timer = 2;
 			private String name = "Orc Soldier";
+			private int poisened = 0;
+			
 			@Override
 			public int getAttack() {
-				// TODO Auto-generated method stub
 				return attack;
 			}
 			@Override
 			public int getTimer() {
-				// TODO Auto-generated method stub
 				return turn_timer;
 			}
 			@Override
 			public int getHealth() {
-				// TODO Auto-generated method stub
 				return health;
 			}
 			@Override
 			public String getName() {
-				// TODO Auto-generated method stub
 				return name;
 			}
 			@Override
 			public void damaged(int n) {
-				// TODO Auto-generated method stub
-				health -= (60 - n);
+				
+				health -= n;
 			}
 			@Override
 			public void ability() {
-				// TODO Auto-generated method stub
 				
 			}
 			@Override
 			public void updateTimer() {
-				// TODO Auto-generated method stub
 				turn_timer -= 1;
 			}
 			@Override
 			public void setTarget(String cardname) {
-				// TODO Auto-generated method stub
 				
 			}
 			@Override
@@ -347,8 +395,22 @@ class CardLibrary {
 			}
 			@Override
 			public String getTarget() {
-				// TODO Auto-generated method stub
 				return null;
+			}
+			@Override
+			public void Poisen() {
+				if(poisened > 0){
+					health-=30;
+					poisened -=1;
+					}
+				
+			}
+			@Override
+			public void setPoisened() {
+				if(poisened <=0)
+					poisened =2;
+				else
+					poisened +=2;
 			}
 		}
 		
@@ -358,44 +420,38 @@ class CardLibrary {
 			private int health = 150;
 			private int turn_timer = 2;
 			private String name = "Swamp Wolf";
+			private int poisened = 0;
+			
 			@Override
 			public int getAttack() {
-				// TODO Auto-generated method stub
 				return attack;
 			}
 			@Override
 			public int getTimer() {
-				// TODO Auto-generated method stub
 				return turn_timer;
 			}
 			@Override
 			public int getHealth() {
-				// TODO Auto-generated method stub
 				return health;
 			}
 			@Override
 			public String getName() {
-				// TODO Auto-generated method stub
 				return name;
 			}
 			@Override
 			public void damaged(int n) {
-				// TODO Auto-generated method stub
 				health -= n;
 			}
 			@Override
 			public void ability() {
-				// TODO Auto-generated method stub
 				
 			}
 			@Override
 			public void updateTimer() {
-				// TODO Auto-generated method stub
 				turn_timer -= 1;
 			}
 			@Override
 			public void setTarget(String cardname) {
-				// TODO Auto-generated method stub
 				
 			}
 			@Override
@@ -405,18 +461,33 @@ class CardLibrary {
 			}
 			@Override
 			public String getTarget() {
-				// TODO Auto-generated method stub
 				return null;
+			}
+			@Override
+			public void Poisen() {
+				if(poisened > 0){
+					health-=30;
+					poisened -=1;
+					}
+				
+			}
+			@Override
+			public void setPoisened() {
+				if(poisened <=0)
+					poisened =2;
+				else
+					poisened +=2;
 			}
 		}
 		
-		//Before it attacks, damages up to 3 random enemy cards on the field for 30, 35% chance to stun each card hit
 		public class Snowoakfairy implements Card{
 			//FIELDS:
 			private int attack = 90;
 			private int health = 180;
 			private int turn_timer = 4;
 			private String name = "Snow Oak Fiary";
+			private int poisened = 0;
+			
 			@Override
 			public int getAttack() {
 				
@@ -424,22 +495,18 @@ class CardLibrary {
 			}
 			@Override
 			public int getTimer() {
-				// TODO Auto-generated method stub
 				return turn_timer;
 			}
 			@Override
 			public int getHealth() {
-				// TODO Auto-generated method stub
 				return health;
 			}
 			@Override
 			public String getName() {
-				// TODO Auto-generated method stub
 				return name;
 			}
 			@Override
 			public void damaged(int n) {
-				// TODO Auto-generated method stub
 				health -= n;
 			}
 			@Override
@@ -449,12 +516,10 @@ class CardLibrary {
 			}
 			@Override
 			public void updateTimer() {
-				// TODO Auto-generated method stub
 				turn_timer -= 1;
 			}
 			@Override
 			public void setTarget(String cardname) {
-				// TODO Auto-generated method stub
 				
 			}
 			@Override
@@ -464,56 +529,63 @@ class CardLibrary {
 			}
 			@Override
 			public String getTarget() {
-				// TODO Auto-generated method stub
 				return null;
+			}
+			@Override
+			public void Poisen() {
+				if(poisened > 0){
+					health-=30;
+					poisened -=1;
+					}
+				
+			}
+			@Override
+			public void setPoisened() {
+				if(poisened <=0)
+					poisened =2;
+				else
+					poisened +=2;
 			}
 		}
 		
-		//40% chance to return to hand when killed on the field. To the deck if hand is full
 		public class Tundratroll implements Card{
 			//FIELDS:
 			private int attack = 110;
 			private int health = 160;
 			private int turn_timer = 2;
 			private String name = "Tundra Troll";
+			private int poisened = 0;
+			
 			@Override
 			public int getAttack() {
-				// TODO Auto-generated method stub
 				return attack;
 			}
 			@Override
 			public int getTimer() {
-				// TODO Auto-generated method stub
 				return turn_timer;
 			}
 			@Override
 			public int getHealth() {
-				// TODO Auto-generated method stub
 				return health;
 			}
 			@Override
 			public String getName() {
-				// TODO Auto-generated method stub
 				return name;
 			}
 			@Override
 			public void damaged(int n) {
-				// TODO Auto-generated method stub
 				health -= n;
 			}
 			@Override
 			public void ability() {
-				// TODO Auto-generated method stub
 				
 			}
 			@Override
 			public void updateTimer() {
-				// TODO Auto-generated method stub
 				turn_timer -= 1;
 			}
 			@Override
 			public void setTarget(String cardname) {
-				// TODO Auto-generated method stub
 				
 			}
 			@Override
@@ -522,56 +594,63 @@ class CardLibrary {
 			}
 			@Override
 			public String getTarget() {
-				// TODO Auto-generated method stub
 				return null;
+			}
+			@Override
+			public void Poisen() {
+				if(poisened > 0){
+					health-=30;
+					poisened -=1;
+					}
+				
+			}
+			@Override
+			public void setPoisened() {
+				if(poisened <=0)
+					poisened =2;
+				else
+					poisened +=2;
 			}
 		}
 		
-		//heals it self by 20% of the damage it does to the enemy player or enemy card 
 		public class Vampirebat implements Card{
 			//FIELDS:
 			private int attack = 100;
 			private int health = 130;
 			private int turn_timer = 2;
 			private String name = "Vampire Bat";
+			private int poisened = 0;
+			
 			@Override
 			public int getAttack() {
-				// TODO Auto-generated method stub
 				return attack;
 			}
 			@Override
 			public int getTimer() {
-				// TODO Auto-generated method stub
 				return turn_timer;
 			}
 			@Override
 			public int getHealth() {
-				// TODO Auto-generated method stub
 				return health;
 			}
 			@Override
 			public String getName() {
-				// TODO Auto-generated method stub
 				return name;
 			}
 			@Override
 			public void damaged(int n) {
-				// TODO Auto-generated method stub
 				health -= n;
 			}
 			@Override
 			public void ability() {
-				// TODO Auto-generated method stub
 				
 			}
 			@Override
 			public void updateTimer() {
-				// TODO Auto-generated method stub
 				turn_timer -= 1;
 			}
 			@Override
 			public void setTarget(String cardname) {
-				// TODO Auto-generated method stub
 				
 			}
 			@Override
@@ -580,8 +659,22 @@ class CardLibrary {
 			}
 			@Override
 			public String getTarget() {
-				// TODO Auto-generated method stub
 				return null;
+			}
+			@Override
+			public void Poisen() {
+				if(poisened > 0){
+					health-=30;
+					poisened -=1;
+					}
+				
+			}
+			@Override
+			public void setPoisened() {
+				if(poisened <=0)
+					poisened =2;
+				else
+					poisened +=2;
 			}
 		}
 		
@@ -592,30 +685,27 @@ class CardLibrary {
 			private int health = 160;
 			private int turn_timer = 2;
 			private String name = "Vikingchief";
+			private int poisened = 0;
+
 			
 			@Override
 			public int getAttack() {
-				// TODO Auto-generated method stub
 				return attack;
 			}
 			@Override
 			public int getTimer() {
-				// TODO Auto-generated method stub
 				return turn_timer;
 			}
 			@Override
 			public int getHealth() {
-				// TODO Auto-generated method stub
 				return health;
 			}
 			@Override
 			public String getName() {
-				// TODO Auto-generated method stub
 				return name;
 			}
 			@Override
 			public void damaged(int n) {
-				// TODO Auto-generated method stub
 				health -= n;
 			}
 			@Override
@@ -625,12 +715,10 @@ class CardLibrary {
 			}
 			@Override
 			public void updateTimer() {
-				// TODO Auto-generated method stub
 				turn_timer -= 1;
 			}
 			@Override
 			public void setTarget(String cardname) {
-				// TODO Auto-generated method stub
 				
 			}
 			@Override
@@ -639,14 +727,30 @@ class CardLibrary {
 			}
 			@Override
 			public String getTarget() {
-				// TODO Auto-generated method stub
 				return null;
+			}
+			@Override
+			public void Poisen() {
+				if(poisened > 0){
+					health-=30;
+					poisened -=1;
+					}
+				
+			}
+			
+			@Override
+			public void setPoisened() {
+				if(poisened <=0)
+					poisened =2;
+				else
+					poisened +=2;
 			}
 			
 			
 		}
 		
-		//Only 1 field. Every method but getName does nothing or returns 0
+		//The dummy card class used to fill the arrays to prevent a 
+		//null pointer exception
 		public class Nocard implements Card{
 			//FIELDS:
 			private String name = "No card";
@@ -709,6 +813,18 @@ class CardLibrary {
 			public String getTarget() {
 				// TODO Auto-generated method stub
 				return null;
+			}
+
+			@Override
+			public void Poisen() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setPoisened() {
+				// TODO Auto-generated method stub
+				
 			}
 
 			

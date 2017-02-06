@@ -1,5 +1,6 @@
 package TitanSurge;
 
+//Interface used to created the observer pattern
 public interface Subject {
 	public void setObservers(Observer obs);
 	public void removeObservers(Observer obs);

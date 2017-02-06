@@ -8,6 +8,7 @@ public class Strategy {
 	
 	public void setStrategy(String word){setStrategy = word;}
 	
+	//performs the selected strategy
 	public void playStrategy(){
 		if(setStrategy.equalsIgnoreCase("Brute Force"))
 			Bruteforce();
@@ -61,6 +62,8 @@ public class Strategy {
 		one.placeCard(one.getHandcard(biggest));
 	}}
 	
+	//if the enemy has enough attack power on the field to win the game, plays
+	//all possible cards in hand
 	public int enemyTotalAttack(){
 		int total = 0;
 		for(int i =0, j = one.enemy.getFieldlength(); i < j; i +=1){
@@ -70,6 +73,7 @@ public class Strategy {
 		return total;
 	}
 	
+	//returns number of cards playable in the players hand
 	public int cardsReady(){
 		int total = 0;
 		for(int i = 0; i <one.getHandlength(); i +=1){
@@ -79,20 +83,8 @@ public class Strategy {
 		return total;
 	}
 	
+	//calculated the difference of cards between the two players
 	private int fieldDifference(){
 		return one.enemy.getFieldlength() - one.getFieldlength();
-	}
-	//creates the array of playable cards from hand, with it's length
-	//determined by the getPlayableamount(), then returns that array
-	private Card[] getPlayablecards(){
-
-		Card[] card = new Card[cardsReady()];
-		int length = 0;
-		for(int i = 0, j = one.getHandlength();i < j; i +=1){
-			if(one.getHandcard(i).getTimer() == 0) 
-				{card[length] = one.getHandcard(i); length +=1;}
-		}
-		
-		return card;
 	}
 }

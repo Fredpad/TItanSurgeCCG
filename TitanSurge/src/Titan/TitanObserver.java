@@ -21,21 +21,22 @@ public class TitanObserver {
 	public void update(String command, int value, String status, int position){
 		if(command.equals("damage")){
 			if(status == null){
-				player.enemy.getFieldcard(position).damaged(30);
+				//player.enemy.getFieldcard(position).damaged(30);
 			}
 			else
 			{
-				player.enemy.getFieldcard(position).abilityDamage(30);
-				player.enemy.getFieldcard(position).inflictedStatus(status);
+				//player.enemy.getFieldcard(position).abilityDamage(30);
+				//player.enemy.getFieldcard(position).inflictedStatus(status);
 			}
 		}
 	}
 	
 	public int get(String value){
 		if(value.equalsIgnoreCase("Fieldlength"))
-			return player.enemy.getFieldlength(); 
-		else
-			return 0;
+		{//return player.enemy.getFieldlength(); 
+			}
+		
+		return 0;
 	}
 }
 /**

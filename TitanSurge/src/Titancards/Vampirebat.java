@@ -1,18 +1,25 @@
 package Titancards;
 
 import Titan.*;
+import Common.*;
 
 public class Vampirebat implements Titancard {
-	int health = 190, timer = 2, attack = 130;
-	String name = "Vampirebat"; 
-	TitanObserver observer;
+	int health = 150, timer = 2, attack = 100;
+	String name = "Vampire Bat"; 
+	CardObserver observer;
+	boolean poisen = false, frozen = false, stun = false;
+	int poisenCount = 0;
 	
 	static int count = 1;
 	String key = String.valueOf(count) + "VP";
 
-	public Vampirebat(TitanObserver obs){
+	public Vampirebat(CardObserver obs){
 		this.observer = obs;
 		count += 1; 
+	}
+	
+	public void onplay(){
+		observer.update("play", key);
 	}
 	
 	@Override
@@ -55,16 +62,16 @@ public class Vampirebat implements Titancard {
 		// TODO Auto-generated method stub
 		return timer;
 	}
-/*
+
 	@Override
 	public int getAttack() {
 		// TODO Auto-generated method stub
 		return attack;
 	}
-*/
+	
 	@Override
 	public void ability() {
-		// TODO Auto-generated method stub
+		//observer.update("blood sucker", value);
 		
 	}
 
@@ -78,14 +85,44 @@ public class Vampirebat implements Titancard {
 	}
 
 	@Override
-	public void inflictedStatus(String status) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void attack(int position) {
+		if(frozen == false && stun == false){
+			ability();
+			observer.update("attack", position,attack);
+		}
+		else if(stun == true){
+			stun = false;
+			observer.update("attack", position,attack);
+		}
+		if(frozen == true){
+			frozen = false;}
+		if(poisen == true){
+			
+			health -= 20;
+			poisenCount -=1;
+			
+			if(poisenCount <= 0)
+				poisen = false;
+			}
+		}
+	
 	@Override
-	public void attack(int i) {
-		// TODO Auto-generated method stub
+	public void inflictedStatus(String status) {
+		if(status.equalsIgnoreCase("stun")){
+			stun = true;}
+		
+		else if(status.equalsIgnoreCase("frozen"))
+		{	frozen = true;}
+		
+		else if(status.equalsIgnoreCase("poisen")){
+			
+			if(poisen == true)
+				poisenCount +=2;
+			
+			else{
+				poisen = true;
+				poisenCount = 2;}
+			}
 		
 	}
 

@@ -1,18 +1,25 @@
 package Titancards;
 
 import Titan.*;
+import Common.*;
 
 public class Dripfairy implements Titancard {
-	int health = 190, timer = 2, attack = 130;
+	int health = 180, timer = 2, attack = 75;
 	String name = "Dripfairy";
-	TitanObserver observer;
+	CardObserver observer;
+	boolean poisen = false, frozen = false, stun = false;
+	int poisenCount = 0;
 	
 	static int count = 1;
 	String key = String.valueOf(count) + "DF";
 
-	public Dripfairy(TitanObserver obs){
+	public Dripfairy(CardObserver obs){
 		this.observer = obs;
 		count += 1; 
+	}
+	
+	public void onplay(){
+		observer.update("play", key);
 	}
 
 	@Override
@@ -53,17 +60,13 @@ public class Dripfairy implements Titancard {
 		return timer;
 	}
 
-	/**
+	
 	@Override
 	public int getAttack() {
 		// TODO Auto-generated method stub
 		return attack;
 	}
-	*/
 	
-	public void attack(int position){
-		observer.update("Attack", position,attack);
-	}
 
 	@Override
 	public void ability() {
@@ -80,8 +83,44 @@ public class Dripfairy implements Titancard {
 	}
 
 	@Override
+	public void attack(int position) {
+		if(frozen == false && stun == false){
+			ability();
+			observer.update("attack", position,attack);
+		}
+		else if(stun == true){
+			stun = false;
+			observer.update("attack", position,attack);
+		}
+		if(frozen == true){
+			frozen = false;}
+		if(poisen == true){
+			
+			health -= 20;
+			poisenCount -=1;
+			
+			if(poisenCount <= 0)
+				poisen = false;
+			}
+		}
+	
+	@Override
 	public void inflictedStatus(String status) {
-		// TODO Auto-generated method stub
+		if(status.equalsIgnoreCase("stun")){
+			stun = true;}
+		
+		else if(status.equalsIgnoreCase("frozen"))
+		{	frozen = true;}
+		
+		else if(status.equalsIgnoreCase("poisen")){
+			
+			if(poisen == true)
+				poisenCount +=2;
+			
+			else{
+				poisen = true;
+				poisenCount = 2;}
+			}
 		
 	}
 

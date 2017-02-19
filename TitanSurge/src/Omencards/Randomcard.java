@@ -1,9 +1,8 @@
 package Omencards;
 
 import java.util.Random;
-
-import Omens.CardObserver;
-import Omens.Omenscard;
+import Omens.*;
+import Common.*;
 
 public class Randomcard {
 	

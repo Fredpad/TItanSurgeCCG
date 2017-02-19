@@ -18,6 +18,8 @@ public abstract class Game {
 	public abstract void playcard(String name);
 	public abstract void adjusthand();
 	public abstract void damaged(int n); 
+	public abstract void newTurn();
+	public abstract void endTurn();
 	
 	///////////////////////////////
 	

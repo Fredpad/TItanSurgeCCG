@@ -1,7 +1,7 @@
 package Omencards;
 
-import Omens.CardObserver;
-import Omens.Omenscard;
+import Omens.*;
+import Common.*;
 
 public class Mercernary implements Omenscard{
 	String name = "Mercernary"; 

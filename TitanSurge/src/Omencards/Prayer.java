@@ -1,6 +1,7 @@
 package Omencards;
 
 import Omens.*;
+import Common.*;
 
 public class Prayer implements Omenscard{
 	String name = "Prayer";

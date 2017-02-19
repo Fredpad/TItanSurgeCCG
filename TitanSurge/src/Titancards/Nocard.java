@@ -70,4 +70,16 @@ public class Nocard implements Titancard {
 		
 	}
 
+	@Override
+	public void onplay() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getAttack() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

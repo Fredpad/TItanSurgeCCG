@@ -1,19 +1,18 @@
 package Omens;
+import Common.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import Common.*;
 
 public class OmensGame extends Game {
 			int banksize = 5, banklength = 0;
 			int skulls = 0, gold =0, apples = 0, magic = 0;
 			Omenscard[] bank = new Omenscard[banksize];
 			Omenscard[] field, deck, hand;
-			CardObserver obs = new CardObserver(this);
+			CardObserver obs = new OmenObserver(this);
 			Cardlib lib = FactoryProducer.getLib("Omens", obs); 
 			OmensGame enemy;
 			
-			OmensGame(){
+			public OmensGame(){
 				health = 20;
 				handsize = 6; 
 				fieldsize = 20; 
@@ -27,6 +26,12 @@ public class OmensGame extends Game {
 				setdeck();
 				sethand();
 				setbank();
+			}
+			
+			public void printbank(){
+				for(Omenscard card: bank){
+					System.out.println(card.getName());
+				}
 			}
 			
 			//#######################################################################
@@ -126,8 +131,18 @@ public class OmensGame extends Game {
 				handlength+=1;
 				shiftdeck();}
 			
-
-			public void newTurndraw(){
+			public void newTurn(){
+				restockbank();
+				onTurnCalls();
+			}
+			
+			public void onTurnCalls(){
+				for(Omenscard card: field){
+					card.getOnturn();
+				}
+			}
+			
+			public void endTurn(){
 				
 				for(int i = 0; i < 3; i +=1){
 					if(handlength < 4){

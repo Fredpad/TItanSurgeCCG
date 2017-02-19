@@ -1,4 +1,5 @@
 package Omens;
+import Common.*;
 
 import Common.Cardlib;
 import Omencards.Coin;

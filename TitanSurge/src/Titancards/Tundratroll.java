@@ -1,18 +1,28 @@
 package Titancards;
 
+import java.util.Random;
+import Common.*;
+
 import Titan.*;
 
 public class Tundratroll implements Titancard {
-	int health = 190, timer = 2, attack = 130;
-	String name = "Tundratroll"; 
-	TitanObserver observer;
+	int health = 180, timer = 2, attack = 110;
+	String name = "Tundra Troll"; 
+	CardObserver observer;
+	int snowball = 30;
+	boolean poisen = false, frozen = false, stun = false;
+	int poisenCount = 0;
 
 	static int count = 1;
 	String key = String.valueOf(count) + "TT";
 
-	public Tundratroll(TitanObserver obs){
+	public Tundratroll(CardObserver obs){
 		this.observer = obs;
 		count += 1; 
+	}
+	
+	public void onplay(){
+		observer.update("play", key);
 	}
 	
 	@Override
@@ -54,17 +64,41 @@ public class Tundratroll implements Titancard {
 		// TODO Auto-generated method stub
 		return timer;
 	}
-/*
+
 	@Override
 	public int getAttack() {
 		// TODO Auto-generated method stub
 		return attack;
 	}
-*/
+	
 	@Override
 	public void ability() {
-		// TODO Auto-generated method stub
+		int enemycards = observer.get("fieldlength");
 		
+		if(enemycards > 0){
+			
+			double d = Math.random() *100;
+			
+			if(enemycards == 1){
+				
+				if(d <= 45)
+					observer.update("damage", snowball, "frozen", 0);
+				else
+					observer.update("damage", snowball, null, 0);
+			}
+			else{
+				
+				Random rand = new Random();
+				int position = rand.nextInt(enemycards);
+				
+				if(d <=45)
+					observer.update("damage", snowball, "frozen", position);
+					
+				else
+					observer.update("damage", snowball, null, position);
+
+			}
+		}
 	}
 
 	@Override
@@ -78,14 +112,44 @@ public class Tundratroll implements Titancard {
 	}
 
 	@Override
-	public void inflictedStatus(String status) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void attack(int position) {
+		if(frozen == false && stun == false){
+			ability();
+			observer.update("attack", position,attack);
+		}
+		else if(stun == true){
+			stun = false;
+			observer.update("attack", position,attack);
+		}
+		if(frozen == true){
+			frozen = false;}
+		if(poisen == true){
+			
+			health -= 20;
+			poisenCount -=1;
+			
+			if(poisenCount <= 0)
+				poisen = false;
+			}
+		}
+	
 	@Override
-	public void attack(int i) {
-		// TODO Auto-generated method stub
+	public void inflictedStatus(String status) {
+		if(status.equalsIgnoreCase("stun")){
+			stun = true;}
+		
+		else if(status.equalsIgnoreCase("frozen"))
+		{	frozen = true;}
+		
+		else if(status.equalsIgnoreCase("poisen")){
+			
+			if(poisen == true)
+				poisenCount +=2;
+			
+			else{
+				poisen = true;
+				poisenCount = 2;}
+			}
 		
 	}
 

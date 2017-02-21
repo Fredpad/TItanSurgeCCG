@@ -1,4 +1,5 @@
 package Common;
+import Omens.*;
 
 import java.io.IOException;
 import java.util.Random;
@@ -8,17 +9,10 @@ import Omens.*;
 public class Main {
 
 	public static void main(String[] args) {
-		OmensGame one = new OmensGame();
-		OmenStrategy strat = new OmenStrategy(one.observer(), one);
+		Player one = new Player(new Enemy3());
 		
-		for(int i = 0; i < 5; i+=1){
-			strat.handcards();
-			strat.buycards();
-			one.gainApples(5);
-			one.gainMagic(3);
-			strat.useresources();
-			strat.player.endTurn();
-		}
+		one.printresources();
+		System.out.println(one.getGoldAmount());
 	}
 
 }

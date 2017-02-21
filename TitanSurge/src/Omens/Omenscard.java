@@ -10,5 +10,6 @@ public interface Omenscard extends Card{
 	 void consumeMagic();
 	 boolean canconsume();
 	 boolean canIntercept();
+	 void buy();
 	 
 }

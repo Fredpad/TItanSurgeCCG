@@ -10,6 +10,7 @@ public class OmensGame extends Game {
 			Omenscard[] field, deck, hand;
 			CardObserver obs = new OmenObserver(this);
 			Cardlib lib = FactoryProducer.getLib("Omens", obs); 
+			OmenStrategy strat = new OmenStrategy(obs, this);
 			OmensGame enemy;
 			
 			public OmensGame(){
@@ -27,13 +28,41 @@ public class OmensGame extends Game {
 				sethand();
 				setbank();
 			}
+			//########################################################################
+			public void printresources(){
+				System.out.println("\tHealth: " + health);
+				System.out.println("\tApples: " + apples);
+				System.out.println("\tSkulls: " + skulls);
+				System.out.println("\tMagic: " + magic );
+			}
 			
 			public void printbank(){
-				for(Omenscard card: bank){
-					System.out.println(card.getName());
+				for(int i = 0; i < banklength; i +=1){
+					System.out.println((i+1) + ": " + bank[i].getName() + "Cost: " + bank[i].getCost());
 				}
 			}
 			
+			public void printhand(){
+				for(int i = 0; i < handlength; i +=1){
+					System.out.println((i+1) + ": " + hand[i].getName());
+				}
+			}
+			
+			public int cheapestcard(){
+				int cost = 0; 
+				for(int i = 0; i < banklength; i+=1){
+					if(bank[i].getCost() > 0)
+						cost = bank[i].getCost();
+				}
+				return cost;
+			}
+			
+			public void printfield(){
+				for(int i= 0; i < fieldlength; i+=1){
+					System.out.println((i+1) + ": " +field[i].getName());
+				}
+			}
+			public CardObserver observer(){return obs;}
 			//#######################################################################
 			
 			/**$$$ START OF METHODS THAT SET UP THE GAME $$$*/
@@ -96,8 +125,24 @@ public class OmensGame extends Game {
 						bank[i] = lib.getOmenscard("no card");
 						handlength+=1;
 						banklength-=1;
+						adjustbank();
 					}
 				}
+			}
+			
+			public void adjustbank(){
+				for(int i = 0; i < banklength; i+=1){
+					if(bank[i].getName().equalsIgnoreCase("No card") && i+1 < banksize){
+						bank[i] = bank[i+1];
+						bank[i+1] = lib.getOmenscard("no card");
+					}
+				}
+			}
+			
+			public void playTurn(){
+				strat.handcards();
+				strat.buycards();
+				strat.useresources();
 			}
 			
 			public void deadcard(String key){
@@ -130,11 +175,6 @@ public class OmensGame extends Game {
 				decklength -=1;
 				handlength+=1;
 				shiftdeck();}
-			
-			public void newTurn(){
-				restockbank();
-				onTurnCalls();
-			}
 			
 			public void onTurnCalls(){
 				for(Omenscard card: field){
@@ -170,7 +210,8 @@ public class OmensGame extends Game {
 						hand[i] = lib.getOmenscard("No card");
 						fieldlength+=1;
 					}
-			}}
+			}
+				adjusthand();}
 
 			@Override
 			public void adjusthand() {
@@ -200,6 +241,16 @@ public class OmensGame extends Game {
 					defend();
 				else
 					health -=1;
+			}
+			
+			public void eatApples(){
+				apples -=1;
+				health +=1;
+			}
+			
+			public void eatMagic(){
+				magic -=1;
+				health +=1;
 			}
 			/**### END OF METHODS THAT CONTINUE THE GAME ###*/ 
 			
@@ -330,6 +381,14 @@ public class OmensGame extends Game {
 			
 			public int getMagicAmount(){
 				return magic;}
+			
+			@Override
+			public void newTurn() {
+				restockbank();
+				onTurnCalls();
+				
+				
+			}
 
 			/**### END OF SETTERS AND GETTERS ### */
 }

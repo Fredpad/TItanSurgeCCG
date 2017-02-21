@@ -22,6 +22,8 @@ public class Courtesan implements Omenscard {
 		return health;
 	}
 
+	public void buy(){observer.update("buy", key);}
+	
 	@Override
 	public void damaged() {
 		health -= 1;

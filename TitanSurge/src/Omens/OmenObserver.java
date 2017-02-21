@@ -43,6 +43,8 @@ public class OmenObserver implements CardObserver{
 				player.todeck(key);
 			else if(call.equalsIgnoreCase("play"))
 				player.playcard(key);
+			else if(call.equalsIgnoreCase("buy"))
+				player.buycard(key);
 		}		
 	}
 

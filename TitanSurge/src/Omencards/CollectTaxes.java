@@ -32,6 +32,8 @@ public class CollectTaxes implements Omenscard{
 		return false;
 	}
 	
+	public void buy(){observer.update("buy", key);}
+	
 	@Override
 	public void onplay() {
 		observer.update("gold", 1);

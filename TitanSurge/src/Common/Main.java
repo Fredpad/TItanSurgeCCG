@@ -8,53 +8,17 @@ import Omens.*;
 public class Main {
 
 	public static void main(String[] args) {
+		OmensGame one = new OmensGame();
+		OmenStrategy strat = new OmenStrategy(one.observer(), one);
 		
-		TitanGame one = new TitanGame();
-		TitanGame two = new TitanGame();
-		one.setEnemy(two); two.setEnemy(one);
-		
-		
-		one.setup();
-		two.setup();
-		
-		one.getHandcard(0).onplay();
-		one.getHandcard(0).onplay();
-		one.getHandcard(0).onplay();
-		
-		two.getHandcard(0).onplay();
-		two.getHandcard(0).onplay();
-		two.getHandcard(0).onplay();
-		System.out.println("\nPlayer 1 Field:" );
-		one.printfield();
-		System.out.println("\nPlayer 2 Field:" );
-		two.printfield();
-		
-		one.attack();
-		two.attack();
-		
-		System.out.println("\nPlayer 1 Field:" );
-		one.printfield();
-		System.out.println("\nPlayer 2 Field:" );
-		two.printfield();
-		/*
-		
-		
-		System.out.println("\nPlayer 1 Field:");
-		one.printfield();
-		System.out.println("\nPlayer 2 Field:");
-		two.printfield();
-		
-		one.attack();
-		
-		System.out.println("\nPlayer 1 Field:");
-		one.printfield();
-		System.out.println("\nPlayer 2 Field:");
-		two.printfield();
-		*/
-		
-	
-			
-		
+		for(int i = 0; i < 5; i+=1){
+			strat.handcards();
+			strat.buycards();
+			one.gainApples(5);
+			one.gainMagic(3);
+			strat.useresources();
+			strat.player.endTurn();
+		}
 	}
 
 }

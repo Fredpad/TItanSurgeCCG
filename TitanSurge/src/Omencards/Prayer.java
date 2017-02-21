@@ -12,6 +12,8 @@ public class Prayer implements Omenscard{
 	
 	public Prayer(CardObserver obs){this.observer = obs; count +=1;}
 	
+	public void buy(){observer.update("buy", key);}
+	
 	@Override
 	public String getName() {
 		return name;

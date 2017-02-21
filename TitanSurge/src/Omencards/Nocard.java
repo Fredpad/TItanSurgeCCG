@@ -9,6 +9,8 @@ public class Nocard implements Omenscard {
 
 	public Nocard(){count +=1;}
 	
+	public void buy(){}
+	
 	@Override
 	public String getName() {
 		return name;

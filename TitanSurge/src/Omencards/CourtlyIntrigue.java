@@ -44,6 +44,8 @@ public class CourtlyIntrigue implements Omenscard{
 		
 	}
 
+	public void buy(){observer.update("buy", key);}
+	
 	@Override
 	public void getOnturn() {
 		//does nothing 

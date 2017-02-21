@@ -14,6 +14,8 @@ public class Coin implements Omenscard{
 		count +=1;
 	}
 	
+	public void buy(){};
+	
 	@Override
 	public String getName() {
 		return name;

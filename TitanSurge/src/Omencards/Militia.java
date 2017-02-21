@@ -52,6 +52,8 @@ public class Militia implements Omenscard{
 		
 	}
 
+	public void buy(){observer.update("buy", key);}
+	
 	@Override
 	public void getOnturn() {
 		observer.update("minion attack");

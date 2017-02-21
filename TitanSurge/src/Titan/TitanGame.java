@@ -45,8 +45,9 @@ public class TitanGame extends Game{
 	}
 	
 	public void printhand(){
-		for(Titancard card: hand){
-			System.out.println(card.getName());
+
+		for(int i = 0; i < handlength; i +=1){
+			System.out.println((i+1) + ": " + hand[i].getName());
 		}
 	}
 	
@@ -161,6 +162,9 @@ public class TitanGame extends Game{
 		}
 	}
 	
+	public Titancard gethandcard(int i){
+		return hand[i];
+	}
 	public void deadcard(String key){
 		for (int i = 0; i < fieldlength; i+=1){
 			if (field[i].getkey().equals(key)){

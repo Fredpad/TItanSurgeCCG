@@ -12,7 +12,6 @@ public class Main {
 		Player one = new Player(new Enemy3());
 		
 		one.printresources();
-		System.out.println(one.getGoldAmount());
 	}
 
 }

@@ -31,6 +31,7 @@ public class OmensGame extends Game {
 			//########################################################################
 			public void printresources(){
 				System.out.println("\tHealth: " + health);
+				System.out.println("\tGold: " +  gold);
 				System.out.println("\tApples: " + apples);
 				System.out.println("\tSkulls: " + skulls);
 				System.out.println("\tMagic: " + magic );
@@ -59,7 +60,7 @@ public class OmensGame extends Game {
 			
 			public void printfield(){
 				for(int i= 0; i < fieldlength; i+=1){
-					System.out.println((i+1) + ": " +field[i].getName());
+					System.out.println((i+1) + ": " + field[i].getName());
 				}
 			}
 			public CardObserver observer(){return obs;}

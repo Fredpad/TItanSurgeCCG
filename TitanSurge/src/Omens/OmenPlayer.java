@@ -1,10 +1,11 @@
 package Omens;
 
-public class Player extends OmensGame{
-	Player enemy;
+public class OmenPlayer extends OmensGame{
 	
-	public Player(Campaign obj){
-		if(obj.change().equalsIgnoreCase("hand"))
+	public OmenPlayer(Campaign obj){
+		if(obj == null){}
+			
+		else if(obj.change().equalsIgnoreCase("hand"))
 		{
 			this.handlength = obj.handlength;
 			
@@ -30,7 +31,7 @@ public class Player extends OmensGame{
 		}
 	}
 	
-	public void setEnemy(Player them){
+	public void setEnemy(OmenPlayer them){
 		this.enemy = them;
 	}
 	

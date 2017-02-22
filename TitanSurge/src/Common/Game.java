@@ -35,6 +35,8 @@ public abstract class Game {
 	public int getdecklength() {
 		return decklength;}	
 	
+	public int gethealth(){return health;}
+	
 	public void healed(int n){
 		health += n;
 	}

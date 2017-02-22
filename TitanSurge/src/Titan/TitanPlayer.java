@@ -1,8 +1,8 @@
 package Titan;
 
-public class Player extends TitanGame{
+public class TitanPlayer extends TitanGame{
 	
-	Player(Campaign obj){
+	TitanPlayer(Campaign obj){
 		
 		if(obj.change().equalsIgnoreCase("hand")){
 			handlength = obj.handlength;

@@ -10,6 +10,9 @@ public class Randomcard {
 		
 		Random rand = new Random(); 
 		int randnum = rand.nextInt((9 -0 ) +1)+0; 
+		while(randnum < 0 && randnum > 9){
+			randnum = rand.nextInt((9-0) +1)+0;
+		}
 		Omenscard[] list = new Omenscard[10];
 		list[0] = new Mercernary(observer);
 		list[1] = new Serf(observer);

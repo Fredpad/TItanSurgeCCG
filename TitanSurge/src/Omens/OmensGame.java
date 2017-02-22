@@ -39,7 +39,7 @@ public class OmensGame extends Game {
 			
 			public void printbank(){
 				for(int i = 0; i < banklength; i +=1){
-					System.out.println((i+1) + ": " + bank[i].getName() + "Cost: " + bank[i].getCost());
+					System.out.println((i+1) + ": " + bank[i].getName() + " Cost: " + bank[i].getCost());
 				}
 			}
 			
@@ -60,7 +60,7 @@ public class OmensGame extends Game {
 			
 			public void printfield(){
 				for(int i= 0; i < fieldlength; i+=1){
-					System.out.println((i+1) + ": " + field[i].getName());
+					System.out.println((i+1) + ": " + field[i].getName() + " Card Health: " + field[i].getHealth());
 				}
 			}
 			public CardObserver observer(){return obs;}
@@ -101,6 +101,9 @@ public class OmensGame extends Game {
 			//###################################################################
 			
 			/**$$$ START OF METHODS THAT CONTINUE THE GAME $$$*/
+			
+			protected void newTurnpassive(){apples +=1;}
+			
 			public void restockbank(){
 				if (banklength < banksize){
 					bank[banklength] = lib.getOmenscard("random");
@@ -114,7 +117,7 @@ public class OmensGame extends Game {
 							bank[i] = bank[i+1];
 						}
 					}
-				bank[banklength] = lib.getOmenscard("random");
+				bank[banklength - 1] = lib.getOmenscard("random");
 				}
 			}
 				
@@ -127,6 +130,7 @@ public class OmensGame extends Game {
 						handlength+=1;
 						banklength-=1;
 						adjustbank();
+						break;
 					}
 				}
 			}
@@ -140,10 +144,27 @@ public class OmensGame extends Game {
 				}
 			}
 			
+			@Override
+			public void newTurn() {
+				newTurnpassive();
+				restockbank();
+				onTurnCalls();
+			}
+			
 			public void playTurn(){
 				strat.handcards();
 				strat.buycards();
 				strat.useresources();
+			}
+			
+
+			public void endTurn(){
+				
+				for(int i = 0; i < 3; i +=1){
+					if(handlength < 4){
+						draw();
+					}
+				}
 			}
 			
 			public void deadcard(String key){
@@ -161,9 +182,9 @@ public class OmensGame extends Game {
 			public void todeck(String key){
 				for(int i = 0; i < handlength; i +=1){
 					if(hand[i].getkey().equals(key))
-						{deck[decklength] = hand[i]; 
-						decklength+=1; handlength -=1;
+						{deck[decklength] = hand[i];
 						hand[i] = lib.getOmenscard("No card");
+						decklength+=1; handlength -=1;
 						adjusthand();
 						break;}
 				}
@@ -178,19 +199,14 @@ public class OmensGame extends Game {
 				shiftdeck();}
 			
 			public void onTurnCalls(){
-				for(Omenscard card: field){
-					card.getOnturn();
-				}
-			}
-			
-			public void endTurn(){
-				
-				for(int i = 0; i < 3; i +=1){
-					if(handlength < 4){
-						draw();
+				if(fieldlength > 0){
+					for(int i = 0; i < fieldlength; i+=1){
+						field[i].getOnturn();
 					}
 				}
+				
 			}
+			
 			
 			private void shiftdeck(){
 			/**Used when the top card of the deck is drawn,
@@ -210,9 +226,11 @@ public class OmensGame extends Game {
 						field[fieldlength] = hand[i];
 						hand[i] = lib.getOmenscard("No card");
 						fieldlength+=1;
+						handlength-=1;
+						adjusthand();
 					}
+				}
 			}
-				adjusthand();}
 
 			@Override
 			public void adjusthand() {
@@ -262,7 +280,8 @@ public class OmensGame extends Game {
 			/**$$$ START OF OFFENSIVE METHODS $$$*/
 			
 			public void minionAttack() {
-				enemy.lowestMinion();
+				enemy.defend();
+				System.out.println("\nEnemy health: " + enemy.gethealth());
 				
 			}
 			public void attackWithSkulls(){
@@ -302,7 +321,10 @@ public class OmensGame extends Game {
 							takesHit = i;
 						}
 					
-					intercept.get(takesHit).damaged();}	}
+					intercept.get(takesHit).damaged();}	
+				
+				else
+					health -=1;}
 			
 			public boolean isIntercepts(){
 				for(int i = 0; i < fieldlength; i +=1){
@@ -337,10 +359,8 @@ public class OmensGame extends Game {
 			
 		
 			public Omenscard getfieldcard(int n){
-				if(n>= 0 && n < handlength){
+				System.out.println("Returning card at field[" + n + "]");
 					return field[n];}
-				else
-					return null;}
 			
 			public Omenscard getbankcard(int n){
 				return bank[n];}
@@ -383,13 +403,7 @@ public class OmensGame extends Game {
 			public int getMagicAmount(){
 				return magic;}
 			
-			@Override
-			public void newTurn() {
-				restockbank();
-				onTurnCalls();
-				
-				
-			}
+			
 
 			/**### END OF SETTERS AND GETTERS ### */
 }

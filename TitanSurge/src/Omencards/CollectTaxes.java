@@ -37,7 +37,7 @@ public class CollectTaxes implements Omenscard{
 	@Override
 	public void onplay() {
 		observer.update("gold", 1);
-		observer.update("deck", name);
+		observer.update("deck", key);
 		observer.update("draw");
 		}
 

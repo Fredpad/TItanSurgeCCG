@@ -85,13 +85,17 @@ public class OmenStrategy {
 	
 	public void useresources(){
 		
-		System.out.println("type minion : uses apples on minion\ntype self : use apples on your health\n"
-				+ "Type stop to stop");
 		
-		player.printresources();
+		
+		
 		while(player.getApplesAmount() > 0){
+			System.out.println("type minion : uses apples on minion\ntype self : use apples on your health\n"
+					+ "Type skip to move on");
 			
+			player.printresources();
 			use = read.next();
+			
+			/**FIRST if-else */
 			
 			if(use.equalsIgnoreCase("self")){
 				player.eatApples();
@@ -99,22 +103,93 @@ public class OmenStrategy {
 				System.out.println();
 			}
 			else if(use.equalsIgnoreCase("minion")){
-				System.out.println("working on this function");
-				player.loseApples(1);
-				player.printresources();
-				System.out.println();}
-			else if(use.equalsIgnoreCase("stop"))
+				
+				/**SECOND if-else */
+				
+				if(player.getfieldlength() > 0){
+					
+					System.out.println("Enter -1 to stop feeding minions");
+					
+					//LOOP that allows the feeding of minions until 0 apples
+					while(player.getApplesAmount() > 0){
+						
+						System.out.println("Player Field:");
+						player.printfield();
+						System.out.println("which minion to feed?");
+						choice = read.nextInt();
+						
+						/**THIRD if-else */
+						
+						if(choice > 0 && choice <= player.getfieldlength()){
+							
+							player.getfieldcard((choice -1)).consumeApples();
+							player.printresources();
+							System.out.println();}
+						
+						else if(choice == -1)
+							break;
+						
+						else{
+							
+							while((choice > 0 && choice <= player.getfieldlength()) == false){
+								
+								System.out.println("That card is not on the field, enter a valid card number");
+								player.printfield();}
+							}	
+					}}
+				
+				else
+					System.out.println("There are no minions on the field");}
+			
+			else if(use.equalsIgnoreCase("skip"))
 				break;
 		}
 		
-		System.out.println("type minion : uses magic on minion\ntype self : use magic on your health\n"
-				+ "Type stop to stop");
-		
-		player.printresources();
-		while(player.getMagicAmount() > 0){
+		while(player.getSkullAmount() > 0){
+			System.out.println("type minion : attacks enemy minion with skulls, if any\n" 
+					+ "type enemy : attacks enemy player with a skull");
+			choice = -1;
+			
+			if(player.enemy.getfieldlength() > 0){
+				System.out.println("\nEnemy field");
+				player.enemy.printfield();
+			}
+			else
+				System.out.println("enemy does not have a field");
+			
+			player.printresources();
 			use = read.next();
 			
-			/**FIRST if/else */
+			/**FIRST if-else chain*/
+			
+			if(use.equalsIgnoreCase("minion")){
+				
+				/**SECOND if-else chain*/
+					if(player.enemy.getfieldlength() > 0){
+						player.loseSkulls(1);
+						player.enemy.lowestMinion();
+						System.out.println("\nEnemy field After attack");
+						player.enemy.printfield();
+					}
+					else
+						System.out.println("There are no cards on the enemy field");
+				}
+			
+			else if(use.equalsIgnoreCase("enemy")){
+				player.loseSkulls(1);
+				player.enemy.defend();
+				System.out.println("Enemy Health: " + player.enemy.gethealth());
+			}
+		}
+		
+		while(player.getMagicAmount() > 0){
+			System.out.println("type minion : uses magic on minion\ntype self : use magic on your health\n"
+					+ "type enemy to attack enemy player \nType skip to move on");
+			
+			player.printresources();
+			use = read.next();
+			
+			/**FIRST if/else chain */
 			
 			if(use.equalsIgnoreCase("self")){
 				
@@ -122,38 +197,49 @@ public class OmenStrategy {
 				player.printresources();
 				System.out.println();}
 			
+			else if(use.equalsIgnoreCase("enemy")){
+				player.loseMagic(1);
+				player.enemy.defend();
+			}
 			else if(use.equalsIgnoreCase("minion")){
 				
-				/**SECOND if/else */
+				/**SECOND if/else chain*/
 				
 				if(player.getfieldlength() > 0){
 					
-					player.printfield();
-					System.out.println("which minion to feed?");
-					choice = read.nextInt();
+					System.out.println("Enter -1 to stop selecting minions");
 					
-					/**THIRD if/else */
+					while(player.getMagicAmount() > 0){
 					
-					if(choice > 0 && choice <= player.getfieldlength()){
+						System.out.println("Player Field:");
+						player.printfield();
+						System.out.println("which minion to feed?");
+						choice = read.nextInt();
 						
-						player.getfieldcard(choice -1).consumeApples();
-						player.printresources();
-						System.out.println();}
-					
-					else{
+						/**THIRD if/else chain*/
 						
-						while((choice > 0 && choice <= player.getfieldlength()) == false){
+						if(choice > 0 && choice <= player.getfieldlength()){
 							
-							System.out.println("That card is not on the field, enter a valid card number");
-							player.printfield();}
-						}	
-					}
+							player.getfieldcard((choice -1)).consumeMagic();
+							player.printresources();
+							System.out.println();}
+						
+						else if(choice == -1)
+							break;
+						else{
+							
+							while((choice > 0 && choice <= player.getfieldlength()) == false){
+								
+								System.out.println("That card is not on the field, enter a valid card number");
+								player.printfield();}
+							}	
+					}}
 				
 				else
 					System.out.println("There are no minions on the field");
 			}
 			
-			else if(use.equalsIgnoreCase("stop"))
+			else if(use.equalsIgnoreCase("skip"))
 				break;
 		}
 	}

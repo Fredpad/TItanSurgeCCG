@@ -11,11 +11,15 @@ public class TitanGame extends Game{
 	Titancard[] deck, hand, field;
 	CardObserver observer = new TitanObserver(this);
 	Cardlib lib = FactoryProducer.getLib("Titan", observer); 
+	TitanStrategy strat = new TitanStrategy(observer, this);
+	static int count = 1;
+	String name = "Player " + String.valueOf(count);
 	TitanGame enemy;
 	
 
 	public TitanGame(){
 		
+		count+=1;
 		health = 1000;
 		handsize = 5 ;
 		decksize = 10;
@@ -47,13 +51,16 @@ public class TitanGame extends Game{
 	public void printhand(){
 
 		for(int i = 0; i < handlength; i +=1){
-			System.out.println((i+1) + ": " + hand[i].getName());
+			System.out.println((i+1) + ": " + hand[i].getName() + " Card health: " + hand[i].getHealth()
+					+"\n\tCard Timer: " + hand[i].getTimer() + " Card Attack: " + hand[i].getAttack());
 		}
 	}
 	
 	public void printfield(){
-		for(Titancard card: field){
-			System.out.println(card.getName() + " #Health: " + card.getHealth() + " #Attack: " + card.getAttack());
+		for(int i = 0; i < fieldlength; i++){
+			System.out.println((i+1) + ": " + field[i].getName() + " Card health: " + field[i].getHealth()
+					+"\n\tCard Timer: " + field[i].getTimer() + " Card Attack: " + field[i].getAttack());
+		
 		}
 	}
 	
@@ -64,11 +71,12 @@ public class TitanGame extends Game{
 	//#######################################################
 	
 	public void draw(){ 
-		hand[handlength] = deck[0] ;
-		decklength -= 1;
-		handlength += 1;
-		deck[0] = lib.getTitancard("No card");
-		adjustdeck();
+		if(decklength > 0){
+			hand[handlength] = deck[0] ;
+			decklength -= 1;
+			handlength += 1;
+			deck[0] = lib.getTitancard("No card");
+			adjustdeck();}
 	}
 	
 	public void newTurn(){
@@ -77,8 +85,12 @@ public class TitanGame extends Game{
 		draw();
 	}
 	
+	public void playTurn(){
+		strat.handcards();
+	}
+	
 	public void endTurn(){
-		
+		attack();
 	}
 	
 	public void setdeck(){
@@ -127,13 +139,15 @@ public class TitanGame extends Game{
 	}	}
 	
 	public void setEnemy(TitanGame person){this.enemy = person;}
+	public String getName(){return name;}
 	
 	public void adjustdeck(){
-		
+		if(decklength > 0){
 		for(int i = 0; i < decklength; i+=1){
 			deck[i] = deck[i+1];
 		}
 		deck[decklength] = lib.getTitancard("No card");
+		}
 		
 		//decklength is suppose to be the next free space to 
 		//store a Titancard object. It was decremented in the draw()
@@ -188,8 +202,8 @@ public class TitanGame extends Game{
 	}
 	
 	public void attacked(int position, int attackDamage){
-		if(field[position].getName().equals("No card"))
-			damaged(attackDamage);
+		if(field[position].getName().equalsIgnoreCase("No card"))
+			health -= attackDamage;
 		else 
 			field[position].damaged(attackDamage);
 	}

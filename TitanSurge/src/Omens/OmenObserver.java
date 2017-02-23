@@ -1,6 +1,7 @@
 package Omens;
 import Common.*;
 
+//CARRIES OUT THE ACTIONS GIVEN BY THE CARDS TO PLAY THE GAME AND ITS MECHANICS
 public class OmenObserver implements CardObserver{
 	private OmensGame player; 
 	

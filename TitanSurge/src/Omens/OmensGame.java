@@ -11,9 +11,12 @@ public class OmensGame extends Game {
 			CardObserver obs = new OmenObserver(this);
 			Cardlib lib = FactoryProducer.getLib("Omens", obs); 
 			OmenStrategy strat = new OmenStrategy(obs, this);
+			static int count = 1;
+			protected String name = "Player " + String.valueOf(count);
 			OmensGame enemy;
 			
 			public OmensGame(){
+				count +=1;
 				health = 20;
 				handsize = 6; 
 				fieldsize = 20; 
@@ -29,6 +32,8 @@ public class OmensGame extends Game {
 				setbank();
 			}
 			//########################################################################
+			
+			//PRINT METHODS / LAST MINUTE METHODS
 			public void printresources(){
 				System.out.println("\tHealth: " + health);
 				System.out.println("\tGold: " +  gold);
@@ -49,6 +54,8 @@ public class OmensGame extends Game {
 				}
 			}
 			
+			//used by strategy to see if there is a card that is cheap enough to be bought
+			//from the bank
 			public int cheapestcard(){
 				int cost = 0; 
 				for(int i = 0; i < banklength; i+=1){
@@ -64,6 +71,8 @@ public class OmensGame extends Game {
 				}
 			}
 			public CardObserver observer(){return obs;}
+			
+			//END OF PRINT METHODS/ LAST MINUTE
 			//#######################################################################
 			
 			/**$$$ START OF METHODS THAT SET UP THE GAME $$$*/
@@ -102,8 +111,11 @@ public class OmensGame extends Game {
 			
 			/**$$$ START OF METHODS THAT CONTINUE THE GAME $$$*/
 			
+			//everyturn, the player gets a free apple
 			protected void newTurnpassive(){apples +=1;}
 			
+			
+			//every turn, the bank is updated with a new card
 			public void restockbank(){
 				if (banklength < banksize){
 					bank[banklength] = lib.getOmenscard("random");
@@ -120,7 +132,8 @@ public class OmensGame extends Game {
 				bank[banklength - 1] = lib.getOmenscard("random");
 				}
 			}
-				
+			
+			//to buy a card. used by observer when a card's buy() method is used
 			public void buycard(String key){
 				for (int i = 0; i < banklength; i+=1){
 					if (bank[i].getkey().equals(key)){
@@ -135,6 +148,7 @@ public class OmensGame extends Game {
 				}
 			}
 			
+			//fills in a gap between cards in the bank
 			public void adjustbank(){
 				for(int i = 0; i < banklength; i+=1){
 					if(bank[i].getName().equalsIgnoreCase("No card") && i+1 < banksize){
@@ -144,6 +158,8 @@ public class OmensGame extends Game {
 				}
 			}
 			
+			//every new turn, the passive activates. the bank is given a new card
+			//cards with abilities activate
 			@Override
 			public void newTurn() {
 				newTurnpassive();
@@ -151,13 +167,14 @@ public class OmensGame extends Game {
 				onTurnCalls();
 			}
 			
+			//calls the strategy class to show playable moves
 			public void playTurn(){
 				strat.handcards();
 				strat.buycards();
 				strat.useresources();
 			}
 			
-
+			//War of omens has the new hand drawn at the end of the turn
 			public void endTurn(){
 				
 				for(int i = 0; i < 3; i +=1){
@@ -167,6 +184,8 @@ public class OmensGame extends Game {
 				}
 			}
 			
+			//if the car is dead, so 0 health, it's moved from the field to 
+			// the DECK. the game does not have  a graveyard
 			public void deadcard(String key){
 				for (int i = 0; i < fieldlength; i+=1){
 					if (field[i].getkey().equals(key)){
@@ -179,6 +198,8 @@ public class OmensGame extends Game {
 				} 
 			}
 			
+			//a card that does not go on the field is instead sent to the deck
+			//after use
 			public void todeck(String key){
 				for(int i = 0; i < handlength; i +=1){
 					if(hand[i].getkey().equals(key))
@@ -198,6 +219,7 @@ public class OmensGame extends Game {
 				handlength+=1;
 				shiftdeck();}
 			
+			//activates the abilities of cards when a new turn starts
 			public void onTurnCalls(){
 				if(fieldlength > 0){
 					for(int i = 0; i < fieldlength; i+=1){
@@ -208,6 +230,7 @@ public class OmensGame extends Game {
 			}
 			
 			
+			//adjust the deck to fill in empty slots between cards
 			private void shiftdeck(){
 			/**Used when the top card of the deck is drawn,
 			 * need to move the "No Card" to the end of the deck
@@ -219,6 +242,7 @@ public class OmensGame extends Game {
 				}
 			}
 			
+			//called by observer to play a card
 			@Override
 			public void playcard(String key) {
 				for (int i=0; i < handlength; i+=1){
@@ -231,7 +255,8 @@ public class OmensGame extends Game {
 					}
 				}
 			}
-
+			
+			//fills empty slots in the hand 
 			@Override
 			public void adjusthand() {
 				for (int i = 0; i < handlength; i+=1){
@@ -242,10 +267,11 @@ public class OmensGame extends Game {
 					}
 				}}
 
+			//fills empty slots in the field
 			@Override
 			public void adjustfield() {
 				for (int i = 0; i < fieldlength; i+=1){
-					if (field[i].getName().equals("no card")){
+					if (field[i].getName().equalsIgnoreCase("no card")){
 						for (int j = i; j < fieldlength; j+=1){
 							if (j == fieldsize-1)
 								break; 
@@ -255,6 +281,7 @@ public class OmensGame extends Game {
 					}}
 				}}
 			
+			//when the player is taking damage, it is either intercepted or taken
 			public void damaged(int n){
 				if(isIntercepts()==true)
 					defend();
@@ -262,11 +289,13 @@ public class OmensGame extends Game {
 					health -=1;
 			}
 			
+			//when the player eats an apple, they get 1 health
 			public void eatApples(){
 				apples -=1;
 				health +=1;
 			}
 			
+			//when the player eats a magic, they get 1 health
 			public void eatMagic(){
 				magic -=1;
 				health +=1;
@@ -279,11 +308,14 @@ public class OmensGame extends Game {
 			
 			/**$$$ START OF OFFENSIVE METHODS $$$*/
 			
+			//if a minion is launchign an attack, this method is called
 			public void minionAttack() {
 				enemy.defend();
 				System.out.println("\nEnemy health: " + enemy.gethealth());
 				
 			}
+			
+			//if a player wants to attack the enemy directly with skulls for 1 damage
 			public void attackWithSkulls(){
 				if(skulls > 0)
 				{
@@ -292,6 +324,7 @@ public class OmensGame extends Game {
 				}
 			}
 			
+			//if the player wants to attack the enemy directly with magic for 1 damage
 			public void attackWithMagic(){
 				if(magic > 0){
 					magic -=1;
@@ -306,6 +339,8 @@ public class OmensGame extends Game {
 			
 			/**$$$ START OF DEFENSIVE METHODS $$$*/
 			
+			//whenever the player is going to take damage, this method is called
+			//so that if a card can intercept it, it will
 			public void defend(){
 				
 				List<Omenscard> intercept = new ArrayList<Omenscard>();
@@ -326,6 +361,7 @@ public class OmensGame extends Game {
 				else
 					health -=1;}
 			
+			//checks to see if there are any cards that can intercept an incoming attack
 			public boolean isIntercepts(){
 				for(int i = 0; i < fieldlength; i +=1){
 					if(field[i].canIntercept() == true){
@@ -334,7 +370,8 @@ public class OmensGame extends Game {
 				}
 				return false;	}
 			
-			
+			//a general attack is always, by default, going to hit the minion with 
+			//the least health and this method carries out that rule
 			public void lowestMinion(){
 				int weakest = 0; 
 				for(int i = 1; i < fieldlength; i+=1){
@@ -354,52 +391,71 @@ public class OmensGame extends Game {
 			
 			/**$$$ START OF SETTERS AND GETTERS $$$*/
 			
+			//tells the player who they're enemy is
+			public void setEnemy(OmensGame them){this.enemy = them;}
+			
+			//get the players name
+			public String getName(){return name;}
+			
+			//get a card in element n of array hand
 			public Omenscard gethandcard(int n){
 					return hand[n];}
 			
-		
+			//get card in element n of array field
 			public Omenscard getfieldcard(int n){
-				System.out.println("Returning card at field[" + n + "]");
 					return field[n];}
 			
+			//get card in element n of array bank
 			public Omenscard getbankcard(int n){
 				return bank[n];}
 			
+			//returns the number of cards in the bank
 			public int getBanklength(){return banklength;}
 			
+			//used when gold is earned
 			public void gainGold(int n){
 				gold +=n;}
 			
+			//used when skulls are generated
 			public void gainSkulls(int n){
 				skulls +=n;}
 			
+			//used when apples are generated
 			public void gainApples(int n){
 				apples +=n;}
 			
+			//used when magic are generated
 			public void gainMagic(int n){
 				magic +=n;}
 			
+			//when an apple is used
 			public void loseApples(int n){
 				apples -=n;}
 			
+			//when magic is used
 			public void loseMagic(int n){
 				magic -= n;}
 			
+			//when skulls are used
 			public void loseSkulls(int n){
 				skulls -= n;}
 			
+			//when gold is used
 			public void loseGold(int n){
 				gold -= n;}
-			
+			//returns the amount of gold the player has
 			public int getGoldAmount(){
 				return gold;}
 			
+			//returns the amount of skulls the player has
 			public int getSkullAmount(){
 				return skulls;}
 			
+			//returns the amount of apples the player has
 			public int getApplesAmount(){
 				return apples;}
 			
+			//returns the amount of magic the player has
 			public int getMagicAmount(){
 				return magic;}
 			

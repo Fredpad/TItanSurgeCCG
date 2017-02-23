@@ -17,6 +17,8 @@ import Omencards.Supplicant;
 import Omencards.WealthyPatron;
 import Titan.Titancard;
 
+//In the abstract factory class, the game decides which library it will use
+//this is the class for when the OMen library is needed
 public class Omenslib extends Cardlib {
 	CardObserver observer;
 	
@@ -24,11 +26,13 @@ public class Omenslib extends Cardlib {
 		this.observer = obs; 
 	}
 
+	//Titan library is not desired thus it does nothing
 	@Override
 	public Titancard getTitancard(String name) {
 		return null;
 	}
 
+	//When the Omens library is wanted, this method is used to return the desired card
 	public Omenscard getOmenscard(String name){
 		if(name.equalsIgnoreCase("Militia"))
 			return new Militia(observer);

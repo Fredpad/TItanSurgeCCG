@@ -56,6 +56,8 @@ public class Mercernary implements Omenscard{
 	@Override
 	public void consumeApples() {
 		observer.update("lose apples", 1);
+		if(health < 2 && health> 0)
+			health +=1;
 		observer.update("minion attack");
 
 	}
@@ -63,6 +65,8 @@ public class Mercernary implements Omenscard{
 	@Override
 	public void consumeMagic() {
 		observer.update("lose magic", 1);
+		if(health < 2 && health> 0)
+			health +=1;
 		observer.update("minion attack");
 
 	}

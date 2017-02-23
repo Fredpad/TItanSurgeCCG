@@ -38,6 +38,7 @@ public class Prayer implements Omenscard{
 	public void onplay() {
 		observer.update("magic", 1);
 		observer.update("deck", key);
+		observer.update("draw");
 		}
 
 	@Override

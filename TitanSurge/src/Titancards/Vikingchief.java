@@ -4,7 +4,7 @@ import Titan.*;
 import Common.*;
 
 public class Vikingchief implements Titancard {
-	int health = 200, timer = 2, attack = 80;
+	int health = 200, timer = 4, attack = 80;
 	String name = "Viking Chief"; 
 	CardObserver observer;
 	boolean poisen = false, frozen = false, stun = false;

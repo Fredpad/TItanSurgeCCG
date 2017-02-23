@@ -1,7 +1,10 @@
 package Omens;
 
+//made to alter a player to be a campaign opponent.
 public class OmenPlayer extends OmensGame{
 	
+	//The constructor will make the object mirror itself to the given
+	//campaign class in it's fields and methods
 	public OmenPlayer(Campaign obj){
 		if(obj == null){}
 			
@@ -31,12 +34,7 @@ public class OmenPlayer extends OmensGame{
 		}
 	}
 	
-	public void setEnemy(OmenPlayer them){
+	public void setEnemy(OmensGame them){
 		this.enemy = them;
 	}
-	
-	//inherits newTurn()
-	//inherit playTurn()
-	//inherits endTurn()
-	
 }

@@ -5,6 +5,7 @@ import Common.*;
 import java.util.Random;
 
 import Titan.Titancard;
+//Class used to implement Flamwyvern
 
 public class Flamewyvern implements Titancard {
 	int health = 200, timer = 4, attack = 140;
@@ -25,52 +26,40 @@ public class Flamewyvern implements Titancard {
 		observer.update("play", key);
 	}
 	
-	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return name;
 	}
 
-	@Override
+
 	public int getHealth() {
-		// TODO Auto-generated method stub
 		return health;
 	}
 
-	@Override
+	
 	public String getkey() {
-		// TODO Auto-generated method stub
 		return key;
 	}
 
-	@Override
 	public void reduceTimer() {
-		// TODO Auto-generated method stub
 		if (timer > 0)
 			timer -=1 ;
 	}
 
-	@Override
 	public void damaged(int n) {
-		// TODO Auto-generated method stub
 		health -= n;
 		if(health <= 0)
 			observer.update("dead", key);
 	}
 
-	@Override
+
 	public int getTimer() {
-		// TODO Auto-generated method stub
 		return timer;
 	}
 
-	@Override
 	public int getAttack() {
-		// TODO Auto-generated method stub
 		return attack;
 	}
-
-	@Override
+	//This card has ability to attack wiht more points deductions
 	public void ability() {
 		int enemycards = observer.get("fieldlength");
 		

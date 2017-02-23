@@ -1,5 +1,6 @@
 package Titan;
-
+//Observer class simply call all the methods we have in the game. 
+//In simple words, this class play the game. 
 import Common.CardObserver;
 
 public class TitanObserver implements CardObserver {
@@ -53,8 +54,3 @@ public class TitanObserver implements CardObserver {
 		
 	}
 }
-/**	
- * double d = Math.random() * 100 
- * if(d <=35)  
- * */
- 

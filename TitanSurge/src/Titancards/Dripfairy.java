@@ -3,6 +3,7 @@ package Titancards;
 import Titan.*;
 import Common.*;
 
+//Class to implement the Dripfairy card 
 public class Dripfairy implements Titancard {
 	int health = 180, timer = 2, attack = 75;
 	String name = "Dripfairy";
@@ -22,59 +23,52 @@ public class Dripfairy implements Titancard {
 		observer.update("play", key);
 	}
 
-	@Override
+	
 	public String getName() {
-		// TODO Auto-generated method stub
 		return name;
 	}
 
-	@Override
+	
 	public int getHealth() {
-		// TODO Auto-generated method stub
 		return health;
 	}
 
-	@Override
+	
 	public String getkey() {
-		// TODO Auto-generated method stub
 		return key;
 	}
 
-	@Override
+	
 	public void reduceTimer() {
-		// TODO Auto-generated method stub
 		if (timer > 0)
 			timer -= 1;
 
 	}
 
-	@Override
+	
 	public void damaged(int n) {
-		// TODO Auto-generated method stub
 		health -= n;
 	}
 
-	@Override
+	
 	public int getTimer() {
-		// TODO Auto-generated method stub
 		return timer;
 	}
 
 	
-	@Override
+	
 	public int getAttack() {
-		// TODO Auto-generated method stub
 		return attack;
 	}
 	
 
-	@Override
+	
 	public void ability() {
-		// TODO Auto-generated method stub
+		//This card has no ability 
 		
 	}
 
-	@Override
+	
 	public void abilityDamage(int damage) {
 		health -=damage;
 		if(health <=0)
@@ -82,7 +76,9 @@ public class Dripfairy implements Titancard {
 		
 	}
 
-	@Override
+	//Attack method used for
+	//updating health
+	//increase points 
 	public void attack(int position) {
 		if(frozen == false && stun == false){
 			ability();
@@ -104,7 +100,7 @@ public class Dripfairy implements Titancard {
 			}
 		}
 	
-	@Override
+	//Method used if other cards attack this card. 
 	public void inflictedStatus(String status) {
 		if(status.equalsIgnoreCase("stun")){
 			stun = true;}

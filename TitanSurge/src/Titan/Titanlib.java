@@ -2,7 +2,7 @@ package Titan;
 import Common.*;
 import Omens.Omenscard;
 import Titancards.*;
-
+//Titanlib, it is a class to produce cards for hte Titan game
 public class Titanlib extends Cardlib {
 	CardObserver observer; 
 	
@@ -10,7 +10,7 @@ public class Titanlib extends Cardlib {
 	public Titanlib(CardObserver obs)
 		{this.observer = obs;}
 	
-	
+	// Method used to set the cards name. 
 	public Titancard getTitancard(String name) {
 		
 		if(name.equalsIgnoreCase("Lion"))
@@ -47,7 +47,7 @@ public class Titanlib extends Cardlib {
 			return new Nocard();
 	}	
 
-	@Override
+	//No card will be generated for the Omens game from this class be we HAD to call this method anyway. 
 	public Omenscard getOmenscard(String name) {
 		return null;
 	}

@@ -3,7 +3,7 @@ package Titancards;
 import Common.CardObserver;
 import Titan.TitanObserver;
 import Titan.Titancard;
-
+//This class is implementatoin of Line Card 
 //pierce damage
 public class Lion implements Titancard{
 		int health = 200, timer = 2, attack = 130;
@@ -24,17 +24,14 @@ public class Lion implements Titancard{
 			observer.update("play", key);
 		}
 		
-		@Override
 		public String getName() {
 			return name;
 		}
 
-		@Override
 		public int getHealth() {
 			return health;
 		}
 
-		@Override
 		public void damaged(int n) {
 			health -= n;
 			if(health <= 0)
@@ -42,39 +39,31 @@ public class Lion implements Titancard{
 			
 		}
 
-		@Override
 		public void reduceTimer() {
 			if(timer > 0)
 				timer -=1;
 		}
 
-		@Override
 		public int getTimer() {
 			return timer;
 		}
 
 		
-		@Override
 		public int getAttack() {
-			// TODO Auto-generated method stub
 			return attack;
 		}
 		
 
-		@Override
 		public String getkey() {
-			// TODO Auto-generated method stub
 			return key;
 		}
-
-		@Override
+		// This card has no special ability. 
 		public void ability() {
-			// TODO Auto-generated method stub
 			
 			
 		}
 
-		@Override
+		// Damage ability for the card. 
 		public void abilityDamage(int damage) {
 			// TODO Auto-generated method stub
 			health -= damage;
@@ -82,7 +71,7 @@ public class Lion implements Titancard{
 				observer.update("dead", key);			
 		}
 
-		@Override
+		//Attack ability for the class. 
 		public void attack(int position) {
 			if(frozen == false && stun == false){
 				ability();
@@ -104,7 +93,6 @@ public class Lion implements Titancard{
 				}
 			}
 		
-		@Override
 		public void inflictedStatus(String status) {
 			if(status.equalsIgnoreCase("stun")){
 				stun = true;}

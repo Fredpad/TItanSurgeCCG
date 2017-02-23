@@ -1,5 +1,6 @@
 package Titan;
 
+//simple campaign class
 public class Campaign {
 	public int cementarysize = 10, cementarylength = 0; 
 	public String[] cementary = new String[cementarysize]; 

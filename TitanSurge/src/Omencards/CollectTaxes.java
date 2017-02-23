@@ -1,7 +1,7 @@
 package Omencards;
 
-import Omens.CardObserver;
-import Omens.Omenscard;
+import Omens.*;
+import Common.*;
 
 public class CollectTaxes implements Omenscard{
 	String name = "Collect Taxes";
@@ -32,10 +32,12 @@ public class CollectTaxes implements Omenscard{
 		return false;
 	}
 	
+	public void buy(){observer.update("buy", key);}
+	
 	@Override
 	public void onplay() {
 		observer.update("gold", 1);
-		observer.update("deck", name);
+		observer.update("deck", key);
 		observer.update("draw");
 		}
 

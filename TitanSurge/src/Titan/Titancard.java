@@ -9,7 +9,7 @@ public interface Titancard extends Card{
 	void ability();
 	void abilityDamage(int damage);
 	void inflictedStatus(String status);
-	//int getAttack();
+	int getAttack();
 	void attack(int i);
 
 }

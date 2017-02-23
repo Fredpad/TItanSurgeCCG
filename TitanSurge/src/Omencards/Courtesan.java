@@ -1,7 +1,7 @@
 package Omencards;
 
-import Omens.CardObserver;
-import Omens.Omenscard;
+import Omens.*;
+import Common.*;
 
 public class Courtesan implements Omenscard {
 	String name = "Courtesan";
@@ -22,6 +22,8 @@ public class Courtesan implements Omenscard {
 		return health;
 	}
 
+	public void buy(){observer.update("buy", key);}
+	
 	@Override
 	public void damaged() {
 		health -= 1;

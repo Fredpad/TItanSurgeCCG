@@ -1,21 +1,28 @@
 package Titancards;
 import Titan.*;
+import Common.*;
 
 import java.util.Random;
 
 import Titan.Titancard;
 
 public class Flamewyvern implements Titancard {
-	int health = 190, timer = 2, attack = 130;
-	String name = "Flamewyvern"; 
-	TitanObserver observer;
+	int health = 200, timer = 4, attack = 140;
+	String name = "Flame Wyvern"; 
+	CardObserver observer;
+	boolean poisen = false, frozen = false, stun = false;
+	int poisenCount = 0;
 	
 	static int count = 1;
 	String key = String.valueOf(count) + "FW";
 
-	public Flamewyvern(TitanObserver  obs){
+	public Flamewyvern(CardObserver obs){
 		this.observer = obs;
 		count += 1; 
+	}
+	
+	public void onplay(){
+		observer.update("play", key);
 	}
 	
 	@Override
@@ -58,9 +65,9 @@ public class Flamewyvern implements Titancard {
 	}
 
 	@Override
-	public void attack(int i) {
+	public int getAttack() {
 		// TODO Auto-generated method stub
-		
+		return attack;
 	}
 
 	@Override
@@ -99,10 +106,46 @@ public class Flamewyvern implements Titancard {
 			observer.update("dead", key);
 		
 	}
-
+	
+	@Override
+	public void attack(int position) {
+		if(frozen == false && stun == false){
+			ability();
+			observer.update("attack", position,attack);
+		}
+		else if(stun == true){
+			stun = false;
+			observer.update("attack", position,attack);
+		}
+		if(frozen == true){
+			frozen = false;}
+		if(poisen == true){
+			
+			health -= 20;
+			poisenCount -=1;
+			
+			if(poisenCount <= 0)
+				poisen = false;
+			}
+		}
+	
 	@Override
 	public void inflictedStatus(String status) {
-		// TODO Auto-generated method stub
+		if(status.equalsIgnoreCase("stun")){
+			stun = true;}
+		
+		else if(status.equalsIgnoreCase("frozen"))
+		{	frozen = true;}
+		
+		else if(status.equalsIgnoreCase("poisen")){
+			
+			if(poisen == true)
+				poisenCount +=2;
+			
+			else{
+				poisen = true;
+				poisenCount = 2;}
+			}
 		
 	}
 

@@ -1,7 +1,7 @@
 package Omencards;
 
-import Omens.CardObserver;
-import Omens.Omenscard;
+import Omens.*;
+import Common.*;
 
 public class SpiceRoute implements Omenscard {
 	String name = "Spice Route";
@@ -12,6 +12,8 @@ public class SpiceRoute implements Omenscard {
 
 	public SpiceRoute(CardObserver obs) {this.observer = obs;	count +=1;}
 
+	public void buy(){observer.update("buy", key);}
+	
 	@Override
 	public String getName() {
 		return name;

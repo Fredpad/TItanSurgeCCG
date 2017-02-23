@@ -9,7 +9,7 @@ import Common.FactoryProducer;
 
 public class TestOmens {
 
-	@Test
+	//@Test
 	public void testStartingHand() {
 		OmensGame game = new OmensGame();
 		
@@ -48,7 +48,7 @@ public class TestOmens {
 		*/
 		game.gethandcard(0).onplay(); 
 		assertEquals(0, game.gethandlength());
-		game.newTurndraw();
+		//game.newTurndraw();
 		assertEquals(3, game.gethandlength());
 		
 		}

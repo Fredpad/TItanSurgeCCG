@@ -1,7 +1,7 @@
 package Omencards;
 
-import Omens.CardObserver;
-import Omens.Omenscard;
+import Omens.*;
+import Common.*;
 
 public class CourtlyIntrigue implements Omenscard{
 	String name = "Courtly Intrigue";
@@ -44,6 +44,8 @@ public class CourtlyIntrigue implements Omenscard{
 		
 	}
 
+	public void buy(){observer.update("buy", key);}
+	
 	@Override
 	public void getOnturn() {
 		//does nothing 

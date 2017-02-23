@@ -1,7 +1,7 @@
 package Omencards;
 
-import Omens.CardObserver;
-import Omens.Omenscard;
+import Omens.*;
+import Common.*;
 
 public class WealthyPatron implements Omenscard{
 	String name = "Wealthy Patron";
@@ -12,6 +12,8 @@ public class WealthyPatron implements Omenscard{
 	
 	public WealthyPatron(CardObserver obs) {this.observer = obs;	count +=1;}
 
+	public void buy(){observer.update("buy", key);}
+	
 	@Override
 	public String getName() {
 		return name;

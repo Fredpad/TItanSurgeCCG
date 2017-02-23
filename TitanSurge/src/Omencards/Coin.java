@@ -1,7 +1,7 @@
 package Omencards;
 
-import Omens.CardObserver;
-import Omens.Omenscard;
+import Omens.*;
+import Common.*;
 
 public class Coin implements Omenscard{
 	String name = "Coin";
@@ -13,6 +13,8 @@ public class Coin implements Omenscard{
 		this.obs = observer;
 		count +=1;
 	}
+	
+	public void buy(){};
 	
 	@Override
 	public String getName() {

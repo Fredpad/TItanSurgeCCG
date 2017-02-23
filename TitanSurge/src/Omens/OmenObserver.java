@@ -1,9 +1,10 @@
 package Omens;
+import Common.*;
 
-public class CardObserver {
+public class OmenObserver implements CardObserver{
 	private OmensGame player; 
 	
-	CardObserver(OmensGame person){
+	OmenObserver(OmensGame person){
 		this.player = person;
 	}
 	
@@ -42,7 +43,27 @@ public class CardObserver {
 				player.todeck(key);
 			else if(call.equalsIgnoreCase("play"))
 				player.playcard(key);
+			else if(call.equalsIgnoreCase("buy"))
+				player.buycard(key);
 		}		
+	}
+
+	@Override
+	public void update(String command, int position, int value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(String command, int value, String status, int position) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int get(String command) {
+		return 0;
+		
 	}
 	
 }

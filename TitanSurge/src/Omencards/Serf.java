@@ -1,7 +1,7 @@
 package Omencards;
 
-import Omens.CardObserver;
-import Omens.Omenscard;
+import Omens.*;
+import Common.*;
 
 public class Serf implements Omenscard{
 	String name = "Serf";
@@ -12,6 +12,8 @@ public class Serf implements Omenscard{
 	
 	public Serf(CardObserver obs) {this.observer = obs;	count +=1;}
 
+	public void buy(){observer.update("buy", key);}
+	
 	@Override
 	public String getName() {
 		return name;

@@ -1,20 +1,27 @@
 package Titancards;
 
 import Titan.*;
+import Common.*;
 
 public class Vikingchief implements Titancard {
-	int health = 190, timer = 2, attack = 130;
-	String name = "Vikingchief"; 
-	TitanObserver observer;
+	int health = 200, timer = 2, attack = 80;
+	String name = "Viking Chief"; 
+	CardObserver observer;
+	boolean poisen = false, frozen = false, stun = false;
+	int poisenCount = 0;
 	
 	static int count = 1;
 	String key = String.valueOf(count) + "VC";
 
-	public Vikingchief(TitanObserver obs){
+	public Vikingchief(CardObserver obs){
 		this.observer = obs;
 		count += 1; 
 	}
-
+	
+	public void onplay(){
+		observer.update("play", key);
+	}
+	
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
@@ -54,16 +61,15 @@ public class Vikingchief implements Titancard {
 		// TODO Auto-generated method stub
 		return timer;
 	}
-/*
 	@Override
 	public int getAttack() {
 		// TODO Auto-generated method stub
 		return attack;
 	}
-*/
+	
 	@Override
 	public void ability() {
-		// TODO Auto-generated method stub
+		observer.update("heal player", 250);
 		
 	}
 
@@ -77,14 +83,44 @@ public class Vikingchief implements Titancard {
 	}
 
 	@Override
-	public void inflictedStatus(String status) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void attack(int position) {
+		if(frozen == false && stun == false){
+			ability();
+			observer.update("attack", position,attack);
+		}
+		else if(stun == true){
+			stun = false;
+			observer.update("attack", position,attack);
+		}
+		if(frozen == true){
+			frozen = false;}
+		if(poisen == true){
+			
+			health -= 20;
+			poisenCount -=1;
+			
+			if(poisenCount <= 0)
+				poisen = false;
+			}
+		}
+	
 	@Override
-	public void attack(int i) {
-		// TODO Auto-generated method stub
+	public void inflictedStatus(String status) {
+		if(status.equalsIgnoreCase("stun")){
+			stun = true;}
+		
+		else if(status.equalsIgnoreCase("frozen"))
+		{	frozen = true;}
+		
+		else if(status.equalsIgnoreCase("poisen")){
+			
+			if(poisen == true)
+				poisenCount +=2;
+			
+			else{
+				poisen = true;
+				poisenCount = 2;}
+			}
 		
 	}
 

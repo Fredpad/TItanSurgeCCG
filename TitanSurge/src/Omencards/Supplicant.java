@@ -1,7 +1,7 @@
 package Omencards;
 
-import Omens.CardObserver;
-import Omens.Omenscard;
+import Omens.*;
+import Common.*;
 
 public class Supplicant implements Omenscard{
 	String name = "Supplicant";
@@ -12,6 +12,8 @@ public class Supplicant implements Omenscard{
 	
 	public Supplicant(CardObserver obs) {this.observer = obs; count+=1;}
 
+	public void buy(){observer.update("buy", key);}
+	
 	@Override
 	public String getName() {
 		return name;

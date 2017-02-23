@@ -1,7 +1,7 @@
 package Omencards;
 
-import Omens.CardObserver;
-import Omens.Omenscard;
+import Omens.*;
+import Common.*;
 
 public class Militia implements Omenscard{
 	String name = "Militia";
@@ -52,6 +52,8 @@ public class Militia implements Omenscard{
 		
 	}
 
+	public void buy(){observer.update("buy", key);}
+	
 	@Override
 	public void getOnturn() {
 		observer.update("minion attack");

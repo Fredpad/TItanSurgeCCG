@@ -1,6 +1,7 @@
 package Omencards;
 
 import Omens.*;
+import Common.*;
 
 public class Prayer implements Omenscard{
 	String name = "Prayer";
@@ -10,6 +11,8 @@ public class Prayer implements Omenscard{
 	String key = String.valueOf(count) + "PR";
 	
 	public Prayer(CardObserver obs){this.observer = obs; count +=1;}
+	
+	public void buy(){observer.update("buy", key);}
 	
 	@Override
 	public String getName() {

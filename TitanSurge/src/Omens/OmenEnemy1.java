@@ -1,8 +1,8 @@
 package Omens;
 
-public class Enemy1 extends Campaign{
+public class OmenEnemy1 extends Campaign{
 
-	public Enemy1(String title){
+	public OmenEnemy1(String title){
 		hand[0] = "Courtesan";
 		hand[1] = "coin";
 		hand[2] = "coin";

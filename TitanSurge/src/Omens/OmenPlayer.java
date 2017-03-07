@@ -12,20 +12,29 @@ public class OmenPlayer extends OmensGame{
 		{
 			this.handlength = obj.handlength;
 			this.name = obj.name;
+			setCampaign(); 
+			
 			for(int i = 0; i < handlength; i++){
 				this.hand[i] = lib.getOmenscard(obj.hand[i]); 
 			}
 		}
 		
 		else if(obj.change().equalsIgnoreCase("field")){
+			
 			this.fieldlength = obj.fieldlength;
 			this.name = obj.name;
+			setCampaign();
+			
 			for(int i = 0; i < fieldlength; i++){
 				this.field[i] = lib.getOmenscard(obj.field[i]);
 			}
 		}
 		
 		else if(obj.change().equalsIgnoreCase("resources")){
+			
+			this.name = obj.name;
+			setCampaign(); 
+			
 			this.name = obj.name;
 			this.gold = obj.gold;
 			this.skulls = obj.skulls;
@@ -33,32 +42,5 @@ public class OmenPlayer extends OmensGame{
 			this.apples = obj.apples;
 			this.magic = obj.magic;
 		}
-	}
-	
-	public void setEnemy(OmensGame them){
-		this.enemy = them;
-	}
-
-	public void reset() {
-		decklength = 10;
-		fieldlength = 0;
-		handlength = 0;
-		banklength = 5;
-		health = 20;
-		apples = 0; skulls = 0; gold = 0; magic = 0;
-		
-		setfield();
-		setdeck();
-		setbank();
-		
-		for(int i = 0; i < handsize; i++)
-			hand[i] = lib.getOmenscard("Coin");
-		
-		sethand();
-		
-	}
-	
-	public void campaignStrat(){
-		strat.campaignTactic();
 	}
 }

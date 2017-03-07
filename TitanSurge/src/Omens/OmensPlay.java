@@ -4,11 +4,11 @@ import java.util.Scanner;
 
 public class OmensPlay {
 	static OmenPlayer one = new OmenPlayer(null);
-	static OmenAi two = new OmenAi();
 	static Scanner read = new Scanner(System.in);
 	static String input;
 	
 	private static void playAI(){
+		OmenAi two = new OmenAi();
 		one.setEnemy(two); two.setEnemy(one);
 		
 		while(true){
@@ -32,9 +32,9 @@ public class OmensPlay {
 	}
 	
 	private static void playCampaign(){
-		OmenPlayer campaign1 = new OmenPlayer(new Enemy1("Campaign 1"));
-		OmenPlayer campaign2 = new OmenPlayer(new Enemy2("Campaign 2"));
-		OmenPlayer campaign3 = new OmenPlayer(new Enemy3("Campaign 3"));
+		OmenPlayer campaign1 = FactoryProducer.getOmen("Campaign 1"); 
+		OmenPlayer campaign2 = FactoryProducer.getOmen("Campaign 2");
+		OmenPlayer campaign3 = FactoryProducer.getOmen("Campaign 3");
 		boolean proceed;
 		
 		System.out.println("Campaign line up\n Campaign Foe One -> Campaign Foe two -> Campaign Foe three");
@@ -73,6 +73,18 @@ public class OmensPlay {
 		
 	}
 	
+	//pvp is a gaming acronym for Player vs Player :D
+	public static void pvp(){
+		OmenPlayer two = FactoryProducer.getOmen("Player");
+		one.setEnemy(two); two.setEnemy(one);
+		
+		boolean winner = Duel.battle(one, two);
+		
+		if(winner == false)
+			System.out.println("\nPLAYER TWO IS THE WINNER");
+		else
+			System.out.println("\nPLAYER ONE IS THE WINNER");
+	}
 	public static void play(){
 		
 		
@@ -89,7 +101,7 @@ public class OmensPlay {
 				break;
 			}
 			else if(input.equalsIgnoreCase("player")){
-				
+				pvp();
 				break;
 			}
 			else{

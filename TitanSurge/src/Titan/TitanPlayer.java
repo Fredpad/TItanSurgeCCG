@@ -8,6 +8,7 @@ public class TitanPlayer extends TitanGame{
 			}
 		 else if(obj.change().equalsIgnoreCase("hand")){
 			handlength = obj.handlength;
+			this.name = obj.name;
 			for(int i = 0; i < handlength; i++){
 				this.hand[i] = lib.getTitancard(obj.hand[i]);
 			}
@@ -15,6 +16,7 @@ public class TitanPlayer extends TitanGame{
 		
 		else if(obj.change().equalsIgnoreCase("health")){
 			health = obj.health;
+			this.name = obj.name;
 		}
 		
 	}

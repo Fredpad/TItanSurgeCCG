@@ -8,6 +8,7 @@ public class Campaign {
 	public int handlength = 0;
 	public int fieldlength = 0;
 	public int decklength = 0;
+	String name;
 	
 	public String change(){return null;} 
 }

@@ -19,22 +19,22 @@ public final class Duel {
 			}
 			
 			two.newTurn();
-			two.campaignStrat();
+			two.playTurn();
 			two.endTurn();
 		}
 	}
 	
-	public String battle(TitanPlayer one, TitanPlayer two){
+	public boolean battle(TitanPlayer one, TitanPlayer two){
 		while(true){
 			one.newTurn();
 			one.playTurn();
 			one.endTurn();
 			
 			if(one.gethealth() <= 0){
-				return one.getName();
+				return false;
 			}
 			else if(two.gethealth() <= 0){
-				return two.getName();
+				return true;
 			}
 			
 			two.newTurn();

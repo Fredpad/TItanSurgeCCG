@@ -1,9 +1,10 @@
 package Titan;
 
-public class Enemy3 extends Campaign {
-	Enemy3(){
+public class TitanEnemy3 extends Campaign {
+	TitanEnemy3(String title){
 		hand[0] = "tunder Troll";
 		handlength  =1;
+		name = title;
 	}
 	public String change(){return "hand";}
 }

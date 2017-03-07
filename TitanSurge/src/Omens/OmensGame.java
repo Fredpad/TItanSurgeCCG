@@ -13,6 +13,7 @@ public class OmensGame extends Game {
 			OmenStrategy strat = new OmenStrategy(obs, this);
 			static int count = 1;
 			protected String name = "Player " + String.valueOf(count);
+			boolean notHuman = false;
 			OmensGame enemy;
 			
 			public OmensGame(){
@@ -84,6 +85,26 @@ public class OmensGame extends Game {
 			//#######################################################################
 			
 			/**$$$ START OF METHODS THAT SET UP THE GAME $$$*/
+			protected void setCampaign(){notHuman = true;}
+			
+			public void reset() {
+				decklength = 10;
+				fieldlength = 0;
+				handlength = 0;
+				banklength = 5;
+				health = 20;
+				apples = 0; skulls = 0; gold = 0; magic = 0;
+				
+				setfield();
+				setdeck();
+				setbank();
+				
+				for(int i = 0; i < handsize; i++)
+					hand[i] = lib.getOmenscard("Coin");
+				
+				sethand();
+				
+			}
 			
 			public void setfield() {
 				for (int i = 0; i < fieldsize;i+=1){
@@ -189,9 +210,12 @@ public class OmensGame extends Game {
 			
 			//calls the strategy class to show playable moves
 			public void playTurn(){
-				strat.handcards();
-				strat.buycards();
-				strat.useresources();
+				if(notHuman == false){
+					strat.handcards();
+					strat.buycards();
+					strat.useresources(); }
+				else
+					strat.campaignTactic();
 			}
 			
 			//War of omens has the new hand drawn at the end of the turn

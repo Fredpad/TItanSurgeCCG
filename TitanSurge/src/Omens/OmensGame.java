@@ -119,6 +119,18 @@ public class OmensGame extends Game {
 			
 			/**$$$ START OF METHODS THAT CONTINUE THE GAME $$$*/
 			
+			public int weakestCard(){
+				int j = 0;
+				
+				for (int i = 0; i < fieldlength; i++){
+					if (field[j].getHealth() > field[i].getHealth()){
+						j = i;
+					}
+				}
+				
+				return j;
+			}
+			
 			//everyturn, the player gets a free apple
 			protected void newTurnpassive(){apples +=1;}
 			

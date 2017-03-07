@@ -19,7 +19,7 @@ public final class Duel {
 			}
 			
 			two.newTurn();
-			two.playTurn();
+			two.campaignStrat();
 			two.endTurn();
 		}
 	}

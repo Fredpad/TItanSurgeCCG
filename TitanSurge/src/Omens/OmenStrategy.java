@@ -460,8 +460,44 @@ public class OmenStrategy {
 		while(player.gethandlength() > 0)
 			player.gethandcard(0).onplay();
 		
-		//must do resources use next
-		//check if card on field can consume, feed it apples and stuff. No priority
+		if (player.getApplesAmount() > 0){
+			
+			for (int i = 0; i < player.getfieldlength(); i++){
+				
+				if (player.getfieldcard(i).canconsume() == true){
+					
+					while(player.getApplesAmount() > 0)
+						player.getfieldcard(i).consumeApples();
+				}
+			}
+		}
 		
+		if (player.getMagicAmount() > 0){
+			
+			for (int i = 0; i < player.getfieldlength(); i++){
+				
+				if (player.getfieldcard(i).canconsume() == true){
+					
+					while(player.getMagicAmount() > 0)
+						player.getfieldcard(i).consumeMagic();;
+				}
+			}
+		}
+		
+		if (player.getSkullAmount() > 0){
+			
+			if(player.enemy.getfieldlength() > 0){
+				while(player.enemy.getfieldlength() > 0 && player.getSkullAmount() > 0){
+					player.loseSkulls(1);
+					player.enemy.defend();
+				}
+				
+				if(player.enemy.gethealth() <= player.getSkullAmount()){
+					player.loseSkulls(player.enemy.gethealth());
+					while(player.enemy.gethealth() > 0 && player.getSkullAmount() > 0)
+						player.enemy.defend();
+				}
+			}
+		}
 	}
 }

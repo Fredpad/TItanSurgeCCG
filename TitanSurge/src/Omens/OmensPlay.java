@@ -39,6 +39,9 @@ public class OmensPlay {
 		
 		System.out.println("Campaign line up\n Campaign Foe One -> Campaign Foe two -> Campaign Foe three");
 		
+		one.setEnemy(campaign1);
+		campaign1.setEnemy(one);
+		
 		if( proceed = Duel.battle(one, campaign1)){
 			System.out.println("THE WINNER IS: " + one.getName());
 			one.reset();
@@ -47,6 +50,10 @@ public class OmensPlay {
 			System.out.println("You lost to Campaign Enemy 1");
 		}
 		if(proceed){
+			
+			one.setEnemy(campaign2);
+			campaign1.setEnemy(one);
+			
 			if(proceed = Duel.battle(one, campaign2))
 				System.out.println("THE WINNER IS: " + one.getName());
 			else
@@ -54,6 +61,9 @@ public class OmensPlay {
 			one.reset();
 		}
 		if(proceed){
+			
+			one.setEnemy(campaign3);
+			campaign1.setEnemy(one);
 			if(proceed = Duel.battle(one, campaign3))
 				System.out.println("THE WINNER IS: " + one.getName());
 			else

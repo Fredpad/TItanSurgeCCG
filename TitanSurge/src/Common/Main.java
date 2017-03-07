@@ -47,28 +47,7 @@ public class Main {
 			
 		}
 		else if(input.equalsIgnoreCase("Omens")){
-			OmenPlayer one = new OmenPlayer(null);
-			OmenAi two = new OmenAi();
-			one.setEnemy(two); two.setEnemy(one);
-			
-			while(true){
-				one.newTurn();
-				one.playTurn();
-				one.endTurn();
-				if(two.gethealth() <= 0){
-					System.out.println("\n THE WINNER IS " + one.getName());
-					break;
-				}
-				two.newTurn();
-				two.playTurn();
-				two.endTurn();
-				
-				if(one.gethealth() <=0){
-					System.out.println("\n THE WINNER IS " + two.getName());
-					break;
-					
-				}
-			}
+			OmensPlay.play();
 			
 		}
 		else{

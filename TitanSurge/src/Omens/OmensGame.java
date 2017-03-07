@@ -35,23 +35,29 @@ public class OmensGame extends Game {
 			
 			//PRINT METHODS / LAST MINUTE METHODS
 			public void printresources(){
+				System.out.println(name + "'s Resources");
 				System.out.println("\tHealth: " + health);
 				System.out.println("\tGold: " +  gold);
 				System.out.println("\tApples: " + apples);
 				System.out.println("\tSkulls: " + skulls);
 				System.out.println("\tMagic: " + magic );
+				System.out.println();
 			}
 			
 			public void printbank(){
+				System.out.println(name + "'s Bank");
 				for(int i = 0; i < banklength; i +=1){
-					System.out.println((i+1) + ": " + bank[i].getName() + " Cost: " + bank[i].getCost());
+					System.out.println("\t" +(i+1) + ": " + bank[i].getName() + " Cost: " + bank[i].getCost());
 				}
+				System.out.println();
 			}
 			
 			public void printhand(){
+				System.out.println(name + "'s Hand");
 				for(int i = 0; i < handlength; i +=1){
-					System.out.println((i+1) + ": " + hand[i].getName());
+					System.out.println("\t" + (i+1) + ": " + hand[i].getName());
 				}
+				System.out.println();
 			}
 			
 			//used by strategy to see if there is a card that is cheap enough to be bought
@@ -66,9 +72,11 @@ public class OmensGame extends Game {
 			}
 			
 			public void printfield(){
+				System.out.println(name + "'s Field");
 				for(int i= 0; i < fieldlength; i+=1){
-					System.out.println((i+1) + ": " + field[i].getName() + " Card Health: " + field[i].getHealth());
+					System.out.println("\t" +(i+1) + ": " + field[i].getName() + " Card Health: " + field[i].getHealth());
 				}
+				System.out.println();
 			}
 			public CardObserver observer(){return obs;}
 			
@@ -78,7 +86,7 @@ public class OmensGame extends Game {
 			/**$$$ START OF METHODS THAT SET UP THE GAME $$$*/
 			
 			public void setfield() {
-				for (int i = 0; i < fieldlength;i+=1){
+				for (int i = 0; i < fieldsize;i+=1){
 					field[i] = lib.getOmenscard("No card");
 				}
 			}

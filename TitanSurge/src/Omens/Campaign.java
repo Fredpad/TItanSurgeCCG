@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Campaign {
 	int gold = 0, skulls = 0, apples = 0, magic = 0, health = 0;
+	public String name;
 	public String[] hand = new String[6];
 	public String[] deck = new String[20]; 
 	public String[] field = new String[50];

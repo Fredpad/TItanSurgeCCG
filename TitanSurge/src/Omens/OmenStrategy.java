@@ -17,12 +17,57 @@ public class OmenStrategy {
 		this.observer = obs;
 		this.player = person;}
 	
+	private void pressEnterToContinue()
+	 { 
+	        System.out.println("Press 'enter' to continue...");
+	        try
+	        {
+	            System.in.read();
+	        }  
+	        catch(Exception e)
+	        {}  
+	 }
+	
+	private void printupdate(){
+		System.out.println("Type 'print' to see your board, 'skip' to move on");
+
+		use = read.nextLine();
+		
+		while(true){
+			
+			if(use.equalsIgnoreCase("print")){
+				print();
+				break;}
+			
+			else if(use.equalsIgnoreCase("skip")){
+				System.out.println();
+				break;}
+			
+			else{
+
+				use=read.nextLine();
+				}
+		}
+	}
+	
+	private void print(){
+		player.printresources();
+		player.printhand();
+		player.printbank();
+		player.printfield();
+	}
+	
 	//used to play cards from the hand
 	public void handcards(){
+		printupdate();
+		System.out.println("Cheking to see if there are cards in hand to play...");
+		pressEnterToContinue();
 		
-		
-		System.out.println("\nYou " +player.getName()+ " can play cards from the hand\nEnter -1 to stop playing cards from hand");
-		player.printhand();
+		System.out.println("####################################################################");
+		if(player.gethandlength() > 0){
+			System.out.println("\nYou " +player.getName()+ " can play cards from the hand\nEnter -1 to stop playing cards from hand");
+			player.printhand();
+		}
 		
 		while(player.gethandlength() > 0){
 			
@@ -30,11 +75,14 @@ public class OmenStrategy {
 			if(choice >= 0 && choice <= player.gethandlength()){
 				player.gethandcard(choice -1).onplay();
 				System.out.println();
+				System.out.println("enter -1 to stop playing cards from hand");
 				player.printhand();
+				
 			}
 			else if(choice > player.gethandlength())
 				{
 				System.out.println("That isn't a card in hand");
+				System.out.println("enter -1 to stop to playing cards from hand");
 				System.out.println();
 				player.printhand();
 				}
@@ -43,18 +91,20 @@ public class OmenStrategy {
 		}
 		
 		System.out.println("\n" + player.getName()+" Gold: " + player.getGoldAmount());
-		System.out.println("\n" + player.getName() + " Field:");
-		player.printfield();
 	}
 	
 	//used to buy cards from the bank and place them in the hand
 	public void buycards(){
-		
+		printupdate();
+		System.out.println("Checking to see if you buy cards from the bank...");
+		pressEnterToContinue();
+		System.out.println("####################################################################");
 		
 		choice = -1;
 		
 		while(player.getGoldAmount() >= player.cheapestcard()){
 			System.out.println("\nThere is enough gold to buy something from the bank\nEnter -1 to stop buying cards from bank");
+			System.out.println("Gold: " +player.getGoldAmount());
 			player.printbank();
 			System.out.println();
 			choice = read.nextInt();
@@ -84,22 +134,14 @@ public class OmenStrategy {
 				break;
 			
 		}
-		
-		System.out.println("\n"+ player.getName() + " Hand: ");
-		player.printhand();
-		System.out.println();
-		handcards();
+		if(player.gethandlength() > 0)
+			handcards();
 	}
 	
-	//called to check all resources and how to used them 
-	public void useresources(){
-		
-		
-		
-		
+	private void playApples(){
 		while(player.getApplesAmount() > 0){
-			System.out.println("\ntype minion : uses apples on minion\ntype self : use apples on your health\n"
-					+ "Type skip to move on");
+			System.out.println("\ntype 'minion' : uses apples on minion\ntype 'self' : use apples on your health\n"
+					+ "Type 'skip' to move on");
 			
 			player.printresources();
 			use = read.next();
@@ -153,10 +195,12 @@ public class OmenStrategy {
 			else if(use.equalsIgnoreCase("skip"))
 				break;
 		}
-		
+	}
+	
+	private void playSkulls(){
 		while(player.getSkullAmount() > 0){
-			System.out.println("\ntype minion : attacks enemy minion with skulls, if any\n" 
-					+ "type enemy : attacks enemy player with a skull");
+			System.out.println("\ntype 'minion' : attacks enemy minion with skulls, if any\n" 
+					+ "type 'enemy' : attacks enemy player with a skull");
 			use = read.next();
 			
 			if(player.enemy.getfieldlength() > 0){
@@ -179,7 +223,7 @@ public class OmenStrategy {
 						player.enemy.lowestMinion();
 						System.out.println("\n" +player.enemy.getName() + " field After attack");
 						player.enemy.printfield();
-						System.out.print("Enter minion or enemy for next attack, enter skip to move on");
+						System.out.print("Enter 'minion' or 'enemy' for next attack, enter 'skip' to move on");
 					}
 					else
 						System.out.println("There are no cards on the enemy field");
@@ -193,10 +237,12 @@ public class OmenStrategy {
 			else if(use.equalsIgnoreCase("skip"))
 				break;
 		}
-		
+	}
+	
+	private void playMagic(){
 		while(player.getMagicAmount() > 0){
-			System.out.println("\ntype minion : uses magic on minion\ntype self : use magic on your health\n"
-					+ "type enemy to attack enemy player \nType skip to move on");
+			System.out.println("\ntype 'minion' : uses magic on minion\ntype 'self' : use magic on your health\n"
+					+ "type 'enemy' to attack enemy player \nType 'skip' to move on");
 			
 			player.printresources();
 			use = read.next();
@@ -255,6 +301,69 @@ public class OmenStrategy {
 			else if(use.equalsIgnoreCase("skip"))
 				break;
 		}
+	}
+	//called to check all resources and how to used them 
+	public void useresources(){
+		printupdate();
+		System.out.println("Checking to see if you have play any resources...");
+		pressEnterToContinue();
+		System.out.println("####################################################################");
+		
+		if(player.getApplesAmount() > 0){
+			System.out.println("You have some apples to use. Wanna use them? 'yes' or 'no'");
+			use = read.nextLine();
+			
+			while(true){
+				
+				if(use.equalsIgnoreCase("yes")){
+					playApples();
+					break;
+				}
+				
+				else if(use.equalsIgnoreCase("no"))
+					break;
+				
+				else
+					use = read.nextLine();
+			}
+		}
+		
+		if(player.getSkullAmount() > 0){
+			System.out.println("You have some skulls to use. Wanna use them? 'yes' or 'no'");
+			use = read.nextLine();
+			
+			while(true){
+				
+				if(use.equalsIgnoreCase("yes")){
+					playSkulls();
+					break;
+				}
+				
+				else if(use.equalsIgnoreCase("no"))
+					break;
+				
+				else
+					use = read.nextLine();
+			}
+		}
+		
+		if(player.getMagicAmount() > 0){
+			System.out.println("You have some magic to use. Wanna use them? 'yes' or 'no'");
+			use = read.nextLine();
+			
+			while(true){
+				
+				if(use.equalsIgnoreCase("yes")){
+					playMagic();
+					break;
+				}
+				
+				else if(use.equalsIgnoreCase("no"))
+					break;
+				
+				else
+					use = read.nextLine();
+			}}
 	}
 
 	//used for the AI class to play its card
@@ -323,5 +432,36 @@ public class OmenStrategy {
 			player.loseSkulls(1);
 			player.enemy.defend();
 		}
+	}
+	
+	public void campaignTactic(){
+		
+		while(player.gethandlength() > 0)
+			player.gethandcard(0).onplay();
+		
+		if(player.getGoldAmount() >= player.cheapestcard()){
+			for(int i =0; i < player.getBanklength(); i++){
+				if(player.getbankcard(i).getCost() == player.cheapestcard())
+					player.getbankcard(i).buy();
+			}
+		}
+		
+		else if(player.getGoldAmount() >= 8){
+			
+			while(player.getGoldAmount() >= player.cheapestcard()){
+				
+				for(int i =0; i < player.getBanklength(); i++){
+					if(player.getbankcard(i).getCost() == player.cheapestcard())
+						player.getbankcard(i).buy();
+				}
+			}
+		}
+		
+		while(player.gethandlength() > 0)
+			player.gethandcard(0).onplay();
+		
+		//must do resources use next
+		//check if card on field can consume, feed it apples and stuff. No priority
+		
 	}
 }

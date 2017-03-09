@@ -21,31 +21,9 @@ public class Main {
 		
 		
 		if(input.equalsIgnoreCase("Titan")){
-			TitanPlayer one = new TitanPlayer(null);
-			TitanAi two = new TitanAi(); 
-			one.setEnemy(two); two.setEnemy(one);
-			
-			while(true){
-				one.newTurn();
-				one.playTurn();
-				one.endTurn();
-				if(two.gethealth() <= 0){
-					System.out.println("\n THE WINNER IS " + one.getName());
-					break;
-				}
-				two.newTurn();
-				two.playTurn();
-				two.endTurn();
-				
-				if(one.gethealth() <=0){
-					System.out.println("\n THE WINNER IS " + two.getName());
-					break;
-					
-				}
+			TitanPlay.play();
 			}
 			
-			
-		}
 		else if(input.equalsIgnoreCase("Omens")){
 			OmensPlay.play();
 			

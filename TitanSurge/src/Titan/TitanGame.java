@@ -70,6 +70,17 @@ public class TitanGame extends Game{
 	}
 	//#######################################################
 	
+	public void reset(){
+		health = 1000;
+		handlength = 0;
+		fieldlength = 0;
+		setdeck();
+		shuffle();
+		sethand();
+		setfield();
+		setcementary();
+	}
+	
 	public void draw(){ 
 		if(decklength > 0){
 			hand[handlength] = deck[0] ;

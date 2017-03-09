@@ -3,6 +3,7 @@ package Titan;
 import java.util.Scanner;
 
 import Common.Duel;
+import Common.FactoryProducer;
 import Titan.*;
 
 public class TitanPlay {
@@ -35,43 +36,116 @@ public class TitanPlay {
 	}
 	
 	public static void playCampaign(){
-		TitanPlayer campaign1 = new TitanPlayer(new TitanEnemy1("Campaign 1"));
-		TitanPlayer campaign2 = new TitanPlayer(new TitanEnemy2("Campaign 2"));
-		TitanPlayer campaign3 = new TitanPlayer(new TitanEnemy3("Campaign 3"));
+		int i = 1;
+		TitanPlayer campaignchain [] = new TitanPlayer[8];
+		Scanner read = new Scanner(System.in);
+		int fight;
+		
+		TitanPlayer campaign1 = FactoryProducer.getTitan("Campaign 1");
+		TitanPlayer campaign2 = FactoryProducer.getTitan("Campaign 2");
+		TitanPlayer campaign3 = FactoryProducer.getTitan("Campaign 3");
+		TitanPlayer campaign4 = FactoryProducer.getTitan("Campaign 4");
+		TitanPlayer campaign5 = FactoryProducer.getTitan("Campaign 5");
+		TitanPlayer campaign6 = FactoryProducer.getTitan("Campaign 6");
+		TitanPlayer campaign7 = FactoryProducer.getTitan("Campaign 7");
+		TitanPlayer campaign8 = FactoryProducer.getTitan("Campaign 8");
+		
+		campaignchain[0] = campaign1; 
+		campaignchain[1] = campaign2;
+		campaignchain[2] = campaign3;
+		campaignchain[3] = campaign4;
+		campaignchain[4] = campaign5;
+		campaignchain[5] = campaign6;
+		campaignchain[6] = campaign7;
+		campaignchain[7] = campaign8;
+		
 		boolean proceed;
         System.out.println("Campaign line up\n Campaign Foe One -> Campaign Foe two -> Campaign Foe three");
 		
         one.setEnemy(campaign1);
         campaign1.setEnemy(one);
         
-		if( proceed = Duel.battle(one, campaign1)){
-			System.out.println("THE WINNER IS: " + one.getName());
-		//	one.reset();
-		}
-		else{
-			System.out.println("You lost to Campaign Enemy 1");
-		}
-		if(proceed){
-			one.setEnemy(campaign2);
-	        campaign2.setEnemy(one);
-			
-			if(proceed = Duel.battle(one, campaign2))
-				System.out.println("THE WINNER IS: " + one.getName());
-			else
-				System.out.println("You lost against Campaign Enemy 2");
-		//	one.reset();
-		}
-		if(proceed){
-			
-			one.setEnemy(campaign3);
-	        campaign3.setEnemy(one);
-	        
-			if(proceed = Duel.battle(one, campaign3))
-				System.out.println("THE WINNER IS: " + one.getName());
-			else
-				System.out.println("You lost against Campaign Enemy 3");
-			//one.reset();
-		}
+        if(Duel.battle(one, campaignchain[0])==true){
+        	
+        	one.reset();
+        	System.out.println("Face " + campaignchain[1].getName() + " Or " + campaignchain[2].getName() + "\nEnter 2 or 3");
+        	fight = read.nextInt();
+        	
+        	if (fight-1 == 1){
+        		proceed = Duel.battle(one, campaignchain[1]);
+        		one.reset();
+        		
+        		if(proceed == true){
+        			System.out.println("Fight " + campaignchain[3].getName() + " Or " + campaignchain[4].getName() + "\nEnter 4 or 5");
+        			fight = read.nextInt();
+        			
+        			if(fight-1 == 3){
+                		proceed = Duel.battle(one, campaignchain[3]);
+                		one.reset();
+                		if (proceed == true){
+                    		proceed = Duel.battle(one, campaignchain[7]);
+
+                		}
+
+        			}
+        			else if(fight-1 == 4){
+                		proceed = Duel.battle(one, campaignchain[4]);
+                		one.reset();
+                		if (proceed == true){
+                    		proceed = Duel.battle(one, campaignchain[7]);
+                		}
+
+        			}
+        			else {
+        				
+        			}
+        		}
+        		
+        	}
+        	else if (fight-1 == 2){
+        		proceed = Duel.battle(one, campaignchain[2]);
+        		one.reset();
+        		
+        		if(proceed == true){
+        			System.out.println("Fight " + campaignchain[5].getName() + " Or " + campaignchain[6].getName() + "\nEnter 6 or 7");
+        			fight = read.nextInt();
+        			
+        			if(fight-1 == 5){
+                		proceed = Duel.battle(one, campaignchain[5]);
+                		one.reset();
+                		if (proceed == true){
+                    		proceed = Duel.battle(one, campaignchain[7]);
+
+                		}
+
+        			}
+        			else if(fight-1 == 6){
+                		proceed = Duel.battle(one, campaignchain[6]);
+                		one.reset();
+                		if (proceed == true){
+                    		proceed = Duel.battle(one, campaignchain[7]);
+                		}
+
+        			}
+        			else {
+        				
+        			}
+        		}
+        		
+        		
+        	}
+        	else {
+        		
+        	}
+        	
+        }
+        
+        while (true){
+        	if(Duel.battle(one, campaignchain[i-1])==true){
+        		one.reset();
+        		System.out.print("Fight " + campaignchain[i*2-1].getName() + " Or " + campaignchain[i*2]);
+        	}
+        }
 		
 	}
 	
@@ -86,11 +160,7 @@ public class TitanPlay {
 
 		int i = in.nextInt();
 		if (i == 1){
-			TitanPlayer second = new TitanPlayer(null);
-			one.setEnemy(second);
-			second.setEnemy(one);
-			
-			Duel.battle(one, second);
+			pvp();
 		}
 		if (i == 2){
 			playAI();
@@ -99,5 +169,15 @@ public class TitanPlay {
 			playCampaign();
 		}
 }
+	public static void pvp(){
+		TitanPlayer two = FactoryProducer.getTitan("player");
+		one.setEnemy(two);
+		two.setEnemy(one);
+		boolean winner = Duel.battle(one, two);
+		if(winner == false)
+			System.out.println("\nPLAYER TWO IS THE WINNER");
+		else
+			System.out.println("\nPLAYER ONE IS THE WINNER");
+	}
 }
 

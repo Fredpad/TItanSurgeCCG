@@ -24,7 +24,7 @@ public final class Duel {
 		}
 	}
 	
-	public boolean battle(TitanPlayer one, TitanPlayer two){
+	public static boolean battle(TitanPlayer one, TitanPlayer two){
 		while(true){
 			one.newTurn();
 			one.playTurn();

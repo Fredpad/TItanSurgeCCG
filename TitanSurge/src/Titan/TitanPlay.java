@@ -35,9 +35,9 @@ public class TitanPlay {
 	}
 	
 	public static void playCampaign(){
-		TitanPlayer campaign1 = new TitanPlayer(new Enemy1("Campaign 1"));
-		TitanPlayer campaign2 = new TitanPlayer(new Enemy2("Campaign 2"));
-		TitanPlayer campaign3 = new TitanPlayer(new Enemy3("Campaign 3"));
+		TitanPlayer campaign1 = new TitanPlayer(new TitanEnemy1("Campaign 1"));
+		TitanPlayer campaign2 = new TitanPlayer(new TitanEnemy2("Campaign 2"));
+		TitanPlayer campaign3 = new TitanPlayer(new TitanEnemy3("Campaign 3"));
 		boolean proceed;
         System.out.println("Campaign line up\n Campaign Foe One -> Campaign Foe two -> Campaign Foe three");
 		
@@ -46,7 +46,7 @@ public class TitanPlay {
         
 		if( proceed = Duel.battle(one, campaign1)){
 			System.out.println("THE WINNER IS: " + one.getName());
-			one.reset();
+		//	one.reset();
 		}
 		else{
 			System.out.println("You lost to Campaign Enemy 1");
@@ -59,7 +59,7 @@ public class TitanPlay {
 				System.out.println("THE WINNER IS: " + one.getName());
 			else
 				System.out.println("You lost against Campaign Enemy 2");
-			one.reset();
+		//	one.reset();
 		}
 		if(proceed){
 			
@@ -70,7 +70,7 @@ public class TitanPlay {
 				System.out.println("THE WINNER IS: " + one.getName());
 			else
 				System.out.println("You lost against Campaign Enemy 3");
-			one.reset();
+			//one.reset();
 		}
 		
 	}

@@ -6,6 +6,8 @@ import Titan.TitanPlayer;
 public final class Duel {
 
 	public static boolean battle(OmenPlayer one, OmenPlayer two){
+		one.setEnemy(two);
+		two.setEnemy(one);
 		while(true){
 			one.newTurn();
 			one.playTurn();
@@ -25,6 +27,8 @@ public final class Duel {
 	}
 	
 	public static boolean battle(TitanPlayer one, TitanPlayer two){
+		one.setEnemy(two);
+		two.setEnemy(one);
 		while(true){
 			one.newTurn();
 			one.playTurn();

@@ -36,7 +36,7 @@ public class TitanPlay {
 	}
 	
 	public static void playCampaign(){
-		int i = 1;
+	
 		TitanPlayer campaignchain [] = new TitanPlayer[8];
 		Scanner read = new Scanner(System.in);
 		int fight;
@@ -60,10 +60,6 @@ public class TitanPlay {
 		campaignchain[7] = campaign8;
 		
 		boolean proceed;
-        System.out.println("Campaign line up\n Campaign Foe One -> Campaign Foe two -> Campaign Foe three");
-		
-        one.setEnemy(campaign1);
-        campaign1.setEnemy(one);
         
         if(Duel.battle(one, campaignchain[0])==true){
         	
@@ -138,13 +134,6 @@ public class TitanPlay {
         		
         	}
         	
-        }
-        
-        while (true){
-        	if(Duel.battle(one, campaignchain[i-1])==true){
-        		one.reset();
-        		System.out.print("Fight " + campaignchain[i*2-1].getName() + " Or " + campaignchain[i*2]);
-        	}
         }
 		
 	}

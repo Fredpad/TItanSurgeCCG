@@ -41,6 +41,14 @@ public class TitanPlay {
 		Scanner read = new Scanner(System.in);
 		int fight;
 		
+		System.out.println("Welcome to the Campaign! After the first battle, you will be given 2 choices\n"
+				+ "In all, you will face 4 Campaign Enemies. The First and Last are always the same\n"
+				+ "The Path's are as follows"
+				+ "\nEnemy 1 -> Enemy 2 or Enemy 3\n"
+				+ "Enemy 2 -> Enemy 4 or Enemy 5\n"
+				+ "Enemy3 -> Enemy 6 or Enemy 7\n"
+				+ "Then the finally Enemy 8 regardless of which path you picked");
+		
 		TitanPlayer campaign1 = FactoryProducer.getTitan("Campaign 1");
 		TitanPlayer campaign2 = FactoryProducer.getTitan("Campaign 2");
 		TitanPlayer campaign3 = FactoryProducer.getTitan("Campaign 3");
@@ -67,6 +75,16 @@ public class TitanPlay {
         	System.out.println("Face " + campaignchain[1].getName() + " Or " + campaignchain[2].getName() + "\nEnter 2 or 3");
         	fight = read.nextInt();
         	
+        	
+        	while(true){
+        		if(fight != 2){
+        			if(fight !=3)
+        				fight = read.nextInt();
+        			else 
+        				break;
+        		}
+        	}
+        	
         	if (fight-1 == 1){
         		proceed = Duel.battle(one, campaignchain[1]);
         		one.reset();
@@ -75,30 +93,43 @@ public class TitanPlay {
         			System.out.println("Fight " + campaignchain[3].getName() + " Or " + campaignchain[4].getName() + "\nEnter 4 or 5");
         			fight = read.nextInt();
         			
-        			if(fight-1 == 3){
+        			while(true){
+                		if(fight != 4 ){
+                			if(fight != 5)
+                				fight = read.nextInt();
+                			else 
+                				break;
+                		}
+                	}
+        			
+        			if(fight == 4){
+        				
                 		proceed = Duel.battle(one, campaignchain[3]);
                 		one.reset();
                 		if (proceed == true){
                     		proceed = Duel.battle(one, campaignchain[7]);
+                    		System.out.println("AND THE CAMPAIGN IS OVER!!");
 
                 		}
 
         			}
-        			else if(fight-1 == 4){
+        			else if(fight == 5){
+        				
                 		proceed = Duel.battle(one, campaignchain[4]);
                 		one.reset();
+                		
                 		if (proceed == true){
                     		proceed = Duel.battle(one, campaignchain[7]);
+
+                    		System.out.println("AND THE CAMPAIGN IS OVER!!");
                 		}
 
-        			}
-        			else {
-        				
         			}
         		}
         		
         	}
         	else if (fight-1 == 2){
+        		
         		proceed = Duel.battle(one, campaignchain[2]);
         		one.reset();
         		
@@ -106,34 +137,38 @@ public class TitanPlay {
         			System.out.println("Fight " + campaignchain[5].getName() + " Or " + campaignchain[6].getName() + "\nEnter 6 or 7");
         			fight = read.nextInt();
         			
-        			if(fight-1 == 5){
+        			while(true){
+        				
+                		if(fight != 6){
+                			if(fight != 7)
+                				fight = read.nextInt();
+                			else 
+                				break;
+                		}
+                	}
+        			
+        			if(fight == 6){
                 		proceed = Duel.battle(one, campaignchain[5]);
                 		one.reset();
                 		if (proceed == true){
                     		proceed = Duel.battle(one, campaignchain[7]);
+                    		System.out.println("AND THE CAMPAIGN IS OVER!!");
 
                 		}
 
         			}
-        			else if(fight-1 == 6){
+        			else if(fight == 7){
                 		proceed = Duel.battle(one, campaignchain[6]);
                 		one.reset();
                 		if (proceed == true){
                     		proceed = Duel.battle(one, campaignchain[7]);
+                    		System.out.println("AND THE CAMPAIGN IS OVER!!");
                 		}
 
         			}
-        			else {
-        				
-        			}
         		}
-        		
-        		
         	}
-        	else {
-        		
-        	}
-        	
+        //end of the first IF statement
         }
 		
 	}

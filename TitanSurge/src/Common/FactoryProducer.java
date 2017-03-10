@@ -16,10 +16,31 @@ public class FactoryProducer {
 	public static OmenPlayer getOmen(String choice){
 		if(choice.equalsIgnoreCase("Campaign 1"))
 			return new OmenPlayer(new OmenEnemy1("Campaign 1")); 
+		
 		else if(choice.equalsIgnoreCase("Campaign 2"))
 			return new OmenPlayer(new OmenEnemy2("Campaign 2"));
+		
 		else if(choice.equalsIgnoreCase("Campaign 3"))
 			return new OmenPlayer(new OmenEnemy3("Campaign 3"));
+		
+		else if(choice.equalsIgnoreCase("Campaign 4"))
+			return new OmenPlayer(new OmenEnemy4("Campaign 4"));
+		
+		else if(choice.equalsIgnoreCase("Campaign 5"))
+			return new OmenPlayer(new OmenEnemy5("Campaign 5"));
+		
+		else if(choice.equalsIgnoreCase("Campaign 5"))
+			return new OmenPlayer(new OmenEnemy5("Campaign 5"));
+		
+		else if(choice.equalsIgnoreCase("Campaign 6"))
+			return new OmenPlayer(new OmenEnemy6("Campaign 6"));
+		
+		else if(choice.equalsIgnoreCase("Campaign 7"))
+			return new OmenPlayer(new OmenEnemy7("Campaign 7"));
+		
+		else if(choice.equalsIgnoreCase("Campaign 8"))
+			return new OmenPlayer(new OmenEnemy8("Campaign 8"));
+		
 		else if(choice.equals("Player"))
 			return new OmenPlayer(null);
 		else
@@ -29,10 +50,31 @@ public class FactoryProducer {
 	public static TitanPlayer getTitan(String choice){
 		if(choice.equalsIgnoreCase("Campaign 1"))
 			return new TitanPlayer(new TitanEnemy1("Campaign 1"));
-		if(choice.equalsIgnoreCase("Campaign 3"))
+		
+		if(choice.equalsIgnoreCase("Campaign 2"))
 			return new TitanPlayer(new TitanEnemy1("Campaign 2"));
+		
 		if(choice.equalsIgnoreCase("Campaign 3"))
 			return new TitanPlayer(new TitanEnemy1("Campaign 3"));
+
+		else if(choice.equalsIgnoreCase("Campaign 4"))
+			return new TitanPlayer(new TitanEnemy4("Campaign 4"));
+		
+		else if(choice.equalsIgnoreCase("Campaign 5"))
+			return new TitanPlayer(new TitanEnemy5("Campaign 5"));
+		
+		else if(choice.equalsIgnoreCase("Campaign 5"))
+			return new TitanPlayer(new TitanEnemy5("Campaign 5"));
+		
+		else if(choice.equalsIgnoreCase("Campaign 6"))
+			return new TitanPlayer(new TitanEnemy6("Campaign 6"));
+		
+		else if(choice.equalsIgnoreCase("Campaign 7"))
+			return new TitanPlayer(new TitanEnemy7("Campaign 7"));
+		
+		else if(choice.equalsIgnoreCase("Campaign 8"))
+			return new TitanPlayer(new TitanEnemy8("Campaign 8"));
+		
 		if(choice.equalsIgnoreCase("Player"))
 			return new TitanPlayer(null);
 		else

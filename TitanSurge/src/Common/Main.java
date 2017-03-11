@@ -13,7 +13,9 @@ import Omens.*;
 
 public class Main {
 
-	public static void main(String[] args) { 
+	public static void main(String[] args) throws IOException { 
+		
+		
 		Scanner read = new Scanner(System.in);
 		String input;
 		System.out.println("Welcome! We have two games to play: TitanSurge and War of Omens. \nWhich do you want to play? Input Titan or Omens");
@@ -34,6 +36,6 @@ public class Main {
 			input  = read.next();}
 			
 		}
-	}
+	}}
 
-}
+

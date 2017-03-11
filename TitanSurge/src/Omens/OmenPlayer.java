@@ -43,4 +43,5 @@ public class OmenPlayer extends OmensGame{
 			this.magic = obj.magic;
 		}
 	}
+
 }

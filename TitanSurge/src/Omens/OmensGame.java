@@ -113,6 +113,10 @@ public class OmensGame extends Game {
 			}
 			
 			public void setdeck(){
+				
+				for(int i = 0; i < decksize; i++)
+					deck[i] = lib.getOmenscard("No card");
+				
 				for (int i = 0; i < 10; i+=1){
 					deck[i] = lib.getOmenscard("Coin");
 				}
@@ -129,6 +133,10 @@ public class OmensGame extends Game {
 			}
 			
 			public void sethand(){
+				
+				for(int i = 0; i < handsize; i++)
+					hand[i] = lib.getOmenscard("No card");
+				
 				for (int i = 0; i < 4; i+=1){
 					draw();
 				}
@@ -139,6 +147,9 @@ public class OmensGame extends Game {
 			//###################################################################
 			
 			/**$$$ START OF METHODS THAT CONTINUE THE GAME $$$*/
+			
+
+			
 			
 			public int weakestCard(){
 				int j = 0;
@@ -434,6 +445,46 @@ public class OmensGame extends Game {
 			//#####################################################################
 			
 			/**$$$ START OF SETTERS AND GETTERS $$$*/
+			
+			public void sethandcard(String card, int i){hand[i] = lib.getOmenscard(card);}
+			
+			public void setdeckcard(String card, int i){deck[i] = lib.getOmenscard(card);}
+			
+			public void setbankcard(String card, int i){bank[i] = lib.getOmenscard(card);}
+			
+			public void setfieldcard(String card, int i){field[i] = lib.getOmenscard(card);}
+			
+			public void setmagic(int i){magic = i;}
+			
+			public void setapples(int i){apples = i;}
+			
+			public void setskulls(int i ){skulls = i;}
+			
+			public void setgold(int i){gold = i;}
+			
+			public void sethealth(int i){health = i;}
+			
+			public void setdecklength(int i){decklength = i;}
+			
+			public void sethandlength(int i){handlength = i;}
+			
+			public void setfieldlength(int i){fieldlength = i;}
+			
+			public void setbanklength(int i){banklength = i;}
+			
+			public Omenscard getdeckcard(int i) {
+				return deck[i];
+			}
+			
+			public void setName(String title){this.name = title;}
+			
+			public int getdecksize(){return decksize;}
+			
+			public int gethandsize(){return handsize;}
+			
+			public int getfieldsize(){return fieldsize;}
+			
+			public int getbanksize(){return banksize;}
 			
 			//tells the player who they're enemy is
 			public void setEnemy(OmensGame them){this.enemy = them;}

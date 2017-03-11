@@ -216,6 +216,7 @@ public class OmensGame extends Game {
 			//cards with abilities activate
 			@Override
 			public void newTurn() {
+				System.out.println(name + " Health: " + health);
 				newTurnpassive();
 				restockbank();
 				onTurnCalls();
@@ -368,7 +369,7 @@ public class OmensGame extends Game {
 			//if a minion is launchign an attack, this method is called
 			public void minionAttack() {
 				enemy.defend();
-				System.out.println("\nEnemy health: " + enemy.gethealth());
+				
 				
 			}
 			
@@ -448,6 +449,7 @@ public class OmensGame extends Game {
 			
 			/**$$$ START OF SETTERS AND GETTERS $$$*/
 			
+			/* THE FOLLOWING SETTERS ARE TO ADJUST DATA WHEN READ FROM THE SAVE FILE*/
 			public void sethandcard(String card, int i){hand[i] = lib.getOmenscard(card);}
 			
 			public void setdeckcard(String card, int i){deck[i] = lib.getOmenscard(card);}
@@ -474,12 +476,13 @@ public class OmensGame extends Game {
 			
 			public void setbanklength(int i){banklength = i;}
 			
+			public void setName(String title){this.name = title;}
+			
 			public Omenscard getdeckcard(int i) {
 				return deck[i];
 			}
 			
-			public void setName(String title){this.name = title;}
-			
+			/*THE NEXT 4 GETTERS ARE USED FOR LOOPS TO SAVE THE GAME INTO A FILE*/
 			public int getdecksize(){return decksize;}
 			
 			public int gethandsize(){return handsize;}

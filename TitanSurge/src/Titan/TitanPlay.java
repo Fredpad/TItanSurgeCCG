@@ -7,11 +7,16 @@ import Common.Duel;
 import Common.FactoryProducer;
 import Titan.*;
 
+//CLASS used to have the user choose a mode of the game
+//Player vs Player
+//Player vs Campaign
+//Player vs Ai
 public class TitanPlay {
 	
 	static TitanPlayer one = new TitanPlayer(null);
 	static TitanAi two = new TitanAi();
 	
+	//AN AI option if the player wants a game against a computer
 	public static void playAI() throws IOException{
 		one.setEnemy(two); 
 		two.setEnemy(one);
@@ -36,6 +41,8 @@ public class TitanPlay {
 		}
 	}
 	
+	/*THE CAMPAIGN is spread like a binary tree. The different enemies are in an array
+	 * and depening on who the player wants to face, they are called from the array.*/
 	public static void playCampaign() throws IOException{
 	
 		TitanPlayer campaignchain [] = new TitanPlayer[8];
@@ -174,6 +181,7 @@ public class TitanPlay {
 		
 	}
 	
+//prompts the user to what game feature to play. Against a person or the campaign or AI
 	public static void play() throws IOException{
 	
 		System.out.println("Which of the following you want to play against? ");
@@ -194,6 +202,8 @@ public class TitanPlay {
 			playCampaign();
 		}
 }
+	
+	//PVP is short for player vs player in the gaming community
 	public static void pvp() throws IOException{
 		TitanPlayer two = FactoryProducer.getTitan("player");
 		one.setEnemy(two);

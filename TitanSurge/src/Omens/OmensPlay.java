@@ -9,6 +9,7 @@ public class OmensPlay {
 	static Scanner read = new Scanner(System.in);
 	static String input;
 	
+	//IF PLAYER WANTS TO FIGHT AN AI, THIS METHOD IS CALLED
 	private static void playAI() throws IOException{
 		OmenAi two = new OmenAi();
 		one.setEnemy(two); two.setEnemy(one);
@@ -33,6 +34,9 @@ public class OmensPlay {
 			}
 	}
 	
+	/*THE CAMPIAGN OF THE OMEN GAME. IT IS IN A BINARY TREE. STORES 8 ENEMIES IN AN ARRAY
+	 * AND LATER CALLS THEM DEPENDING ON THE CHOICES THE PLAYER MAKES
+	 * */
 	public static void playCampaign() throws IOException{
 		
 		OmenPlayer campaignchain [] = new OmenPlayer[8];
@@ -179,6 +183,7 @@ public class OmensPlay {
         	System.out.println("Good try on the campaign");
 		
 	}
+	
 	//pvp is a gaming acronym for Player vs Player :D
 	public static void pvp() throws IOException{
 		OmenPlayer two = FactoryProducer.getOmen("Player");
@@ -191,6 +196,8 @@ public class OmensPlay {
 		else
 			System.out.println("\nPLAYER ONE IS THE WINNER");
 	}
+	
+	//CALLED TO HAVE THE PLAYER SELECT WHAT TO PLAY. VS PLAYER, CAMPAIGN, OR AI
 	public static void play() throws IOException{
 		
 		

@@ -256,6 +256,9 @@ public class TitanGame extends Game{
 		
 	}
 	
+	//used to signal the flag to say
+	//'Hey it's a campaign class so it uses the campaign strategy'
+	//instead of waiting for user import to make the moves
 	protected void setCampaign(){isHuman = false;}
 	
 	public void setname(String title){name = title;}

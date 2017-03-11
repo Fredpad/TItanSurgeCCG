@@ -18,6 +18,7 @@ public class OmenStrategy {
 		this.observer = obs;
 		this.player = person;}
 	
+	//used to give a moment of pause
 	private void pressEnterToContinue()
 	 { 
 	        System.out.println("Press 'enter' to continue...");
@@ -29,6 +30,8 @@ public class OmenStrategy {
 	        {}  
 	 }
 	
+	//used to ask the player what they want to do before the turn starts
+	//such as view the board or a save/load
 	private void printupdate() throws IOException{
 		System.out.println("Type 'print' to see your board, 'enemy' to print the enemy board"
 				+ "\n'save' to save the game or 'load' to load a game \n'skip' to move on");
@@ -67,6 +70,7 @@ public class OmenStrategy {
 		}
 	}
 	
+	//prints the players board when called 
 	private void print(){
 		player.printresources();
 		player.printhand();
@@ -74,6 +78,7 @@ public class OmenStrategy {
 		player.printfield();
 	}
 	
+	//prints the enemy's board
 	private void printEnemy(){
 		player.enemy.printresources();
 		player.enemy.printhand();
@@ -162,6 +167,8 @@ public class OmenStrategy {
 			handcards();
 	}
 	
+	//moved the chunk of coded that allowed the use of apples 
+	//into its own method for better organization 
 	private void playApples(){
 		while(player.getApplesAmount() > 0){
 			System.out.println("\ntype 'minion' : uses apples on minion\ntype 'self' : use apples on your health\n"
@@ -221,6 +228,7 @@ public class OmenStrategy {
 		}
 	}
 	
+	//moved the chunk of code into its own method for better organization
 	private void playSkulls(){
 		while(player.getSkullAmount() > 0){
 			System.out.println("\ntype 'minion' : attacks enemy minion with skulls, if any\n" 
@@ -263,6 +271,7 @@ public class OmenStrategy {
 		}
 	}
 	
+	//moved the chunk of code into its own method for better organization
 	private void playMagic(){
 		while(player.getMagicAmount() > 0){
 			System.out.println("\ntype 'minion' : uses magic on minion\ntype 'self' : use magic on your health\n"
@@ -326,6 +335,7 @@ public class OmenStrategy {
 				break;
 		}
 	}
+	
 	//called to check all resources and how to used them 
 	public void useresources() throws IOException{
 		printupdate();
@@ -458,6 +468,7 @@ public class OmenStrategy {
 		}
 	}
 	
+	//the basic tactics the campaign classes will use
 	public void campaignTactic(){
 		
 		while(player.gethandlength() > 0)
@@ -469,20 +480,6 @@ public class OmenStrategy {
 					player.getbankcard(i).buy();
 			}
 		}
-		
-		else if(player.getGoldAmount() >= 8){
-			
-			while(player.getGoldAmount() >= player.cheapestcard()){
-				
-				for(int i =0; i < player.getBanklength(); i++){
-					if(player.getbankcard(i).getCost() == player.cheapestcard())
-						player.getbankcard(i).buy();
-				}
-			}
-		}
-		
-		while(player.gethandlength() > 0)
-			player.gethandcard(0).onplay();
 		
 		if (player.getApplesAmount() > 0){
 			

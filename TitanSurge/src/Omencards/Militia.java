@@ -47,8 +47,8 @@ public class Militia implements Omenscard{
 			health = 1;}
 		
 		double retaliate = Math.random()*100; 
-		if(retaliate <= 35)
-			observer.update("minion attack");
+		//if(retaliate <= 35)
+			//observer.update("minion attack");
 		
 	}
 

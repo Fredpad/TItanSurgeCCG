@@ -31,8 +31,8 @@ public class Mercernary implements Omenscard{
 			health =2;
 		}
 		double retaliate = Math.random()*100; 
-		if(retaliate <= 50)
-			observer.update("minion attack");
+		//if(retaliate <= 50)
+			//observer.update("minion attack");
 	}
 
 	public void buy(){observer.update("buy", key);}

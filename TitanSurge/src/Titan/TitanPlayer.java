@@ -2,6 +2,12 @@ package Titan;
 
 public class TitanPlayer extends TitanGame{
 	
+	
+	//The constructor takes in a child of the Campaign class with different
+	//data sets that has it's start different from normal to give a bit of a challenge
+	//for the campaign. If it is passed to the constructor, it will read the change() method
+	//so it knows what changes to make. If null, then it just becomes a player class representing
+	//a real player with input 
 	public TitanPlayer(Campaign obj){
 		 if(obj == null){
 				

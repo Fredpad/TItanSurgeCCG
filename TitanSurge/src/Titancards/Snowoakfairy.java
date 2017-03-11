@@ -83,7 +83,7 @@ public class Snowoakfairy implements Titancard {
 				else
 					observer.update("damage", snowball, null, 0);
 			}
-		}
+		
 		else if(enemycards ==2){
 			for(int i = 0; i < 2; i+=1){
 				d = Math.random()*100;
@@ -92,7 +92,7 @@ public class Snowoakfairy implements Titancard {
 				else
 					observer.update("damage", snowball, null, i);
 			}
-		}
+		}}
 		
 		else if(enemycards ==3){
 			for(int i = 0; i < 3; i+=1){
@@ -101,17 +101,6 @@ public class Snowoakfairy implements Titancard {
 					observer.update("damage", snowball, "frozen", i);
 				else
 					observer.update("damage", snowball, null, i);
-			}
-		}
-		
-		else{
-			final int[] ints = new Random().ints(0, enemycards).distinct().limit(3).toArray();
-			for(int i = 0; i < 3; i+=1){
-				d = Math.random()*100;
-				if(d <= 35)
-					observer.update("damage", snowball, "frozen", ints[i]);
-				else
-					observer.update("damage", snowball, null, ints[i]);
 			}
 		}
 		

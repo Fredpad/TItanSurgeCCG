@@ -13,6 +13,7 @@ public class FactoryProducer {
 			return null;
 	}
 	
+	//a factory method to generate and return campaign classes for Omen
 	public static OmenPlayer getOmen(String choice){
 		if(choice.equalsIgnoreCase("Campaign 1"))
 			return new OmenPlayer(new OmenEnemy1("Campaign 1")); 
@@ -47,6 +48,7 @@ public class FactoryProducer {
 			return null;
 	}
 	
+	//A factory class used to generate campaign classes
 	public static TitanPlayer getTitan(String choice){
 		if(choice.equalsIgnoreCase("Campaign 1"))
 			return new TitanPlayer(new TitanEnemy1("Campaign 1"));

@@ -7,6 +7,8 @@ import Titan.TitanPlayer;
 
 public final class Duel {
 
+	//TAKES two players/ or a player and AI and have them face each other until a winner
+	//is found. The boolean return signals who won the match
 	public static boolean battle(OmenPlayer one, OmenPlayer two) throws IOException{
 		one.setEnemy(two);
 		two.setEnemy(one);
@@ -35,6 +37,8 @@ public final class Duel {
 		}
 	}
 	
+	//TAKES two players/ or a player and AI and have them face each other until a winner
+	//is found. The boolean return signals who won the match
 	public static boolean battle(TitanPlayer one, TitanPlayer two) throws IOException{
 		one.setEnemy(two);
 		two.setEnemy(one);

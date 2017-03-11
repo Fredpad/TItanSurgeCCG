@@ -1,5 +1,6 @@
 package Omens;
 
+//A silly final battle where the entire deck is a single, weak card
 public class OmenEnemy8 extends Campaign	{
 
 	public OmenEnemy8(String title){

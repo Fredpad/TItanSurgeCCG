@@ -17,6 +17,8 @@ public class TitanStrategy {
 		this.player = person;
 	}
 	
+	//Prompts the user for a decision before the turn
+	//to see their board, the enemy board, or a save/load
 	private void printupdate() throws IOException{
 		System.out.println("Type 'print' to see your board, 'enemy' to print the enemy board"
 				+ "\n'save' to save the game or 'load' to load a game \n'skip' to move on");
@@ -55,17 +57,19 @@ public class TitanStrategy {
 		}
 	}
 	
+	//prints the users board
 	private void print(){
 		player.printhand();
 		player.printfield();
 	}
 	
+	//prints the enemies board
 	private void printEnemy(){
 		player.enemy.printhand();
 		player.enemy.printfield();
 	}
 	
-	
+	//asks the user to play cards from teh hand, if able and if wanted
 	public void handcards() throws IOException{
 		printupdate();
 		
@@ -101,6 +105,7 @@ public class TitanStrategy {
 
 	}
 	
+	//basic strategy for the AI and campaign classes to use
 	public void attackStrategy(){
 		for(int i = 0; i < player.gethandlength(); i+=1){
 			if(player.getHandcard(i).getTimer() <= 0)

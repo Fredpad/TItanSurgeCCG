@@ -1,6 +1,7 @@
 package Omens;
 import Common.*;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class OmensPlay {
@@ -8,7 +9,7 @@ public class OmensPlay {
 	static Scanner read = new Scanner(System.in);
 	static String input;
 	
-	private static void playAI(){
+	private static void playAI() throws IOException{
 		OmenAi two = new OmenAi();
 		one.setEnemy(two); two.setEnemy(one);
 		
@@ -32,7 +33,7 @@ public class OmensPlay {
 			}
 	}
 	
-	public static void playCampaign(){
+	public static void playCampaign() throws IOException{
 		
 		OmenPlayer campaignchain [] = new OmenPlayer[8];
 		Scanner read = new Scanner(System.in);
@@ -179,7 +180,7 @@ public class OmensPlay {
 		
 	}
 	//pvp is a gaming acronym for Player vs Player :D
-	public static void pvp(){
+	public static void pvp() throws IOException{
 		OmenPlayer two = FactoryProducer.getOmen("Player");
 		one.setEnemy(two); two.setEnemy(one);
 		
@@ -190,7 +191,7 @@ public class OmensPlay {
 		else
 			System.out.println("\nPLAYER ONE IS THE WINNER");
 	}
-	public static void play(){
+	public static void play() throws IOException{
 		
 		
 		System.out.println("Do you want to do 'campaign', an 'AI' or vs a 'player' ?");
@@ -202,7 +203,11 @@ public class OmensPlay {
 				break;
 			}
 			else if(input.equalsIgnoreCase("AI")){
-				playAI();
+				try {
+					playAI();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				break;
 			}
 			else if(input.equalsIgnoreCase("player")){

@@ -6,7 +6,7 @@ import java.io.*;
 public final class SaveLoad {
 	
 	
-	public static void save(OmenPlayer one, OmenPlayer two) throws IOException{
+	public static void save(OmensGame one, OmensGame two) throws IOException{
 		File file = new File("OmenSave.txt");
 		
 		if(file.exists() ==false){
@@ -101,17 +101,8 @@ public final class SaveLoad {
 		write.flush();
 		write.close();
 	}
-	
-	public static void printfile() throws IOException{
-		File file = new File("OmenSave.txt");
-		BufferedReader read = new BufferedReader(new FileReader(file));
-		String line;
-		
-		while((line = read.readLine()) != null)
-			System.out.println(line);
-	}
-	
-	public static void load(OmenPlayer one, OmenPlayer two) throws IOException{
+
+	public static void load(OmensGame one, OmensGame two) throws IOException{
 		File file = new File("OmenSave.txt");
 		
 		if(file.exists() == false)
@@ -169,10 +160,13 @@ public final class SaveLoad {
 				two.setbankcard(read.readLine(), i);
 			
 			read.close();
+			
+			one.setEnemy(two);
+			two.setEnemy(one);
 		}
 	}
 
-	public static void save(TitanPlayer one, TitanPlayer two) throws IOException{
+	public static void save(TitanGame one, TitanGame two) throws IOException{
 		File file = new File("TitanSave.txt");
 		
 		if(file.exists() ==false){
@@ -252,7 +246,7 @@ public final class SaveLoad {
 
 	}
 	
-	public static void load(TitanPlayer one, TitanPlayer two) throws IOException{
+	public static void load(TitanGame one, TitanGame two) throws IOException{
 		
 		File file = new File("TitanSave.txt");
 		
@@ -305,7 +299,8 @@ public final class SaveLoad {
 			
 			read.close();
 			
-			
+			one.setEnemy(two);
+			two.setEnemy(one);
 		}
 	}
 

@@ -1,5 +1,7 @@
 package Omens;
 import Common.*;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -220,7 +222,7 @@ public class OmensGame extends Game {
 			}
 			
 			//calls the strategy class to show playable moves
-			public void playTurn(){
+			public void playTurn() throws IOException{
 				if(notHuman == false){
 					strat.handcards();
 					strat.buycards();

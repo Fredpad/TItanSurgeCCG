@@ -1,5 +1,6 @@
 package Titan;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import Common.Duel;
@@ -11,7 +12,7 @@ public class TitanPlay {
 	static TitanPlayer one = new TitanPlayer(null);
 	static TitanAi two = new TitanAi();
 	
-	public static void playAI(){
+	public static void playAI() throws IOException{
 		one.setEnemy(two); 
 		two.setEnemy(one);
 		//while loop
@@ -35,7 +36,7 @@ public class TitanPlay {
 		}
 	}
 	
-	public static void playCampaign(){
+	public static void playCampaign() throws IOException{
 	
 		TitanPlayer campaignchain [] = new TitanPlayer[8];
 		Scanner read = new Scanner(System.in);
@@ -173,7 +174,7 @@ public class TitanPlay {
 		
 	}
 	
-	public static void play(){
+	public static void play() throws IOException{
 	
 		System.out.println("Which of the following you want to play against? ");
 		System.out.println("1- Another player press 1");
@@ -193,7 +194,7 @@ public class TitanPlay {
 			playCampaign();
 		}
 }
-	public static void pvp(){
+	public static void pvp() throws IOException{
 		TitanPlayer two = FactoryProducer.getTitan("player");
 		one.setEnemy(two);
 		two.setEnemy(one);

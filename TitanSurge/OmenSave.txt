@@ -1,0 +1,182 @@
+Player 1
+20
+0
+0
+0
+0
+6
+Coin
+Coin
+Coin
+Coin
+Coin
+Coin
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+4
+Coin
+Coin
+Coin
+Coin
+No card
+No card
+0
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+5
+Wealthy Patron
+Collect Taxes
+Prayer
+Supplicant
+Mercernary
+Player 2
+20
+0
+0
+0
+0
+6
+Coin
+Coin
+Coin
+Coin
+Coin
+Coin
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+4
+Coin
+Coin
+Coin
+Coin
+No card
+No card
+0
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+No card
+5
+Prayer
+Courtly Intrigue
+Mercernary
+Militia
+Prayer

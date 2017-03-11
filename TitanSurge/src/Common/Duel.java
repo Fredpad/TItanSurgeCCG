@@ -1,11 +1,13 @@
 package Common;
 
+import java.io.IOException;
+
 import Omens.*;
 import Titan.TitanPlayer;
 
 public final class Duel {
 
-	public static boolean battle(OmenPlayer one, OmenPlayer two){
+	public static boolean battle(OmenPlayer one, OmenPlayer two) throws IOException{
 		one.setEnemy(two);
 		two.setEnemy(one);
 		while(true){
@@ -33,7 +35,7 @@ public final class Duel {
 		}
 	}
 	
-	public static boolean battle(TitanPlayer one, TitanPlayer two){
+	public static boolean battle(TitanPlayer one, TitanPlayer two) throws IOException{
 		one.setEnemy(two);
 		two.setEnemy(one);
 		while(true){

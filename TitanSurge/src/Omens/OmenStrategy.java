@@ -1,4 +1,5 @@
 package Omens;
+import java.io.IOException;
 import java.util.Scanner;
 
 import Common.*;
@@ -28,8 +29,9 @@ public class OmenStrategy {
 	        {}  
 	 }
 	
-	private void printupdate(){
-		System.out.println("Type 'print' to see your board, 'skip' to move on");
+	private void printupdate() throws IOException{
+		System.out.println("Type 'print' to see your board, 'enemy' to print the enemy board"
+				+ "\n'save' to save the game or 'load' to load a game \n'skip' to move on");
 
 		use = read.nextLine();
 		
@@ -42,6 +44,21 @@ public class OmenStrategy {
 			else if(use.equalsIgnoreCase("skip")){
 				System.out.println();
 				break;}
+			
+			else if(use.equalsIgnoreCase("enemy")){
+				printEnemy();
+				break;
+			}
+			
+			else if(use.equalsIgnoreCase("save")){
+				SaveLoad.save(player, player.enemy);
+				break;
+			}
+			
+			else if(use.equalsIgnoreCase("load")){
+				SaveLoad.load(player, player.enemy);
+				break;
+			}
 			
 			else{
 
@@ -57,8 +74,15 @@ public class OmenStrategy {
 		player.printfield();
 	}
 	
+	private void printEnemy(){
+		player.enemy.printresources();
+		player.enemy.printhand();
+		player.enemy.printbank();
+		player.enemy.printfield();
+	}
+	
 	//used to play cards from the hand
-	public void handcards(){
+	public void handcards() throws IOException{
 		printupdate();
 		System.out.println("Cheking to see if there are cards in hand to play...");
 		pressEnterToContinue();
@@ -94,7 +118,7 @@ public class OmenStrategy {
 	}
 	
 	//used to buy cards from the bank and place them in the hand
-	public void buycards(){
+	public void buycards() throws IOException{
 		printupdate();
 		System.out.println("Checking to see if you buy cards from the bank...");
 		pressEnterToContinue();
@@ -303,7 +327,7 @@ public class OmenStrategy {
 		}
 	}
 	//called to check all resources and how to used them 
-	public void useresources(){
+	public void useresources() throws IOException{
 		printupdate();
 		System.out.println("Checking to see if you have play any resources...");
 		pressEnterToContinue();

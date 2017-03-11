@@ -1,0 +1,72 @@
+Player 1
+1000
+10
+Vampire Bat
+Tundra Troll
+Swamp Wolf
+Orc Solider
+Flame Wyvern
+Viking Chief
+Dripfairy
+Lion
+Spider
+Snow Oak Fairy
+0
+No Card
+No Card
+No Card
+No Card
+No Card
+0
+No Card
+No Card
+No Card
+No Card
+No Card
+0
+No Card
+No Card
+No Card
+No Card
+No Card
+No Card
+No Card
+No Card
+No Card
+No Card
+Player 2
+1000
+10
+Vampire Bat
+Spider
+Orc Solider
+Snow Oak Fairy
+Dripfairy
+Swamp Wolf
+Viking Chief
+Lion
+Flame Wyvern
+Tundra Troll
+0
+No Card
+No Card
+No Card
+No Card
+No Card
+0
+No Card
+No Card
+No Card
+No Card
+No Card
+0
+No Card
+No Card
+No Card
+No Card
+No Card
+No Card
+No Card
+No Card
+No Card
+No Card

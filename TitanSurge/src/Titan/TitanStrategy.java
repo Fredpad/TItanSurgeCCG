@@ -1,5 +1,7 @@
 package Titan;
 import Common.*;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class TitanStrategy {
@@ -15,8 +17,58 @@ public class TitanStrategy {
 		this.player = person;
 	}
 	
-	public void handcards(){
+	private void printupdate() throws IOException{
+		System.out.println("Type 'print' to see your board, 'enemy' to print the enemy board"
+				+ "\n'save' to save the game or 'load' to load a game \n'skip' to move on");
+
+		use = read.nextLine();
+		
+		while(true){
 			
+			if(use.equalsIgnoreCase("print")){
+				print();
+				break;}
+			
+			else if(use.equalsIgnoreCase("skip")){
+				System.out.println();
+				break;}
+			
+			else if(use.equalsIgnoreCase("enemy")){
+				printEnemy();
+				break;
+			}
+			
+			else if(use.equalsIgnoreCase("save")){
+				SaveLoad.save(player, player.enemy);
+				break;
+			}
+			
+			else if(use.equalsIgnoreCase("load")){
+				SaveLoad.load(player, player.enemy);
+				break;
+			}
+			
+			else{
+
+				use=read.nextLine();
+				}
+		}
+	}
+	
+	private void print(){
+		player.printhand();
+		player.printfield();
+	}
+	
+	private void printEnemy(){
+		player.enemy.printhand();
+		player.enemy.printfield();
+	}
+	
+	
+	public void handcards() throws IOException{
+		printupdate();
+		
 		System.out.println("\n" + player.getName() + " Health: " + player.gethealth());
 			
 			while(player.gethandlength() > 0){

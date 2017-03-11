@@ -1,4 +1,5 @@
 package Titan;
+import java.io.IOException;
 import java.util.Random;
 
 import Common.*;
@@ -97,7 +98,7 @@ public class TitanGame extends Game{
 		draw();
 	}
 	
-	public void playTurn(){
+	public void playTurn() throws IOException{
 		if(isHuman == true)
 			strat.handcards();
 		else

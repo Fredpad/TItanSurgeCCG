@@ -15,7 +15,10 @@ public class Main {
 
 	public static void main(String[] args) throws IOException { 
 		
+		TitanPlayer one = new TitanPlayer(null);
+		TitanPlayer two = new TitanPlayer(null);
 		
+		/*
 		Scanner read = new Scanner(System.in);
 		String input;
 		System.out.println("Welcome! We have two games to play: TitanSurge and War of Omens. \nWhich do you want to play? Input Titan or Omens");
@@ -35,7 +38,7 @@ public class Main {
 			System.out.println("That input did not match Titan or Omens. Try again: ");
 			input  = read.next();}
 			
-		}
+		}*/
 	}}
 
 

@@ -14,6 +14,7 @@ public class TitanGame extends Game{
 	TitanStrategy strat = new TitanStrategy(observer, this);
 	static int count = 1;
 	String name = "Player " + String.valueOf(count);
+	boolean isHuman = true;
 	TitanGame enemy;
 	
 
@@ -97,7 +98,10 @@ public class TitanGame extends Game{
 	}
 	
 	public void playTurn(){
-		strat.handcards();
+		if(isHuman == true)
+			strat.handcards();
+		else
+			strat.attackStrategy();
 	}
 	
 	public void endTurn(){
@@ -145,7 +149,7 @@ public class TitanGame extends Game{
 	}
 	
 	public void setcementary(){
-		for(int i = 0; i < cementarylength; i+=1){
+		for(int i = 0; i < cementarysize; i+=1){
 			cementary[i] = lib.getTitancard("No card");
 	}	}
 	
@@ -249,4 +253,41 @@ public class TitanGame extends Game{
 	public void damaged(int n) {
 		health -= n;
 		
-	}}
+	}
+	
+	protected void setCampaign(){isHuman = false;}
+	
+	public void setname(String title){name = title;}
+	
+	public void sethealth(int i ){health = i;}
+	
+	public void setdecklength(int i ){decklength = i;}
+	
+	public void sethandlength(int i){handlength = i;}
+	
+	public void setfieldlength(int i){fieldlength = i;}
+	
+	public void setcementarylength(int i){cementarylength = i;}
+	
+	public void setdeckcard(String card, int i ){deck[i] = lib.getTitancard(card);}
+	
+	public void sethandcard(String card, int i){hand[i] = lib.getTitancard(card);}
+	
+	public void setfieldcard(String card, int i){field[i] = lib.getTitancard(card);}
+	
+	public void setcementarycard(String card, int i){cementary[i] = lib.getTitancard(card);}
+	
+	public Titancard getdeckcard(int i){return deck[i];}
+	
+	public Titancard getcementarycard(int i){return cementary[i];}
+	
+	public int getdecksize(){return decksize;}
+	
+	public int getfieldsize(){return fieldsize;}
+	
+	public int gethandsize(){return handsize;}
+	
+	public int getcementarysize(){return cementarysize;}
+	
+	public int getcementarylength(){return cementarylength;}
+}

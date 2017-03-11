@@ -23,6 +23,13 @@ public final class Duel {
 			two.newTurn();
 			two.playTurn();
 			two.endTurn();
+			
+			if(one.gethealth() <= 0){
+				return false;
+			}
+			else if(two.gethealth() <= 0){
+				return true;
+			}
 		}
 	}
 	
@@ -44,6 +51,13 @@ public final class Duel {
 			two.newTurn();
 			two.playTurn();
 			two.endTurn();
+			
+			if(one.gethealth() <= 0){
+				return false;
+			}
+			else if(two.gethealth() <= 0){
+				return true;
+			}
 		}
 	}
 }

@@ -7,6 +7,8 @@ public class TitanPlayer extends TitanGame{
 				
 			}
 		 else if(obj.change().equalsIgnoreCase("hand")){
+			 
+			setCampaign();
 			handlength = obj.handlength;
 			this.name = obj.name;
 			for(int i = 0; i < handlength; i++){
@@ -15,11 +17,15 @@ public class TitanPlayer extends TitanGame{
 		}
 		
 		else if(obj.change().equalsIgnoreCase("health")){
+			
+			setCampaign();
 			health = obj.health;
 			this.name = obj.name;
 		}
 		 
 		else if(obj.change().equalsIgnoreCase("hand decklength")){
+			
+			setCampaign();
 			this.handlength = obj.handlength;
 			this.name = obj.name;
 			this.decklength = obj.decklength;
@@ -28,6 +34,8 @@ public class TitanPlayer extends TitanGame{
 			}
 		}
 		else if(obj.change().equalsIgnoreCase("hand field decklength")){
+			
+			setCampaign();
 			this.decklength = obj.decklength;
 			this.handlength = obj.handlength;
 			this.fieldlength = obj.fieldlength;
@@ -42,6 +50,8 @@ public class TitanPlayer extends TitanGame{
 		}
 		 
 		else if(obj.change().equalsIgnoreCase("health hand field decklength")){
+			
+			setCampaign();
 			this.health = obj.health;
 			this.handlength = obj.handlength;
 			this.fieldlength = obj.fieldlength;

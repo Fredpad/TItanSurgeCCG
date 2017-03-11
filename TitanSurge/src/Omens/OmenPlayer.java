@@ -42,6 +42,15 @@ public class OmenPlayer extends OmensGame{
 			this.apples = obj.apples;
 			this.magic = obj.magic;
 		}
+		
+		else if(obj.change().equalsIgnoreCase("deck")){
+			this.name = obj.name;
+			setCampaign();
+			
+			this.decklength = obj.decklength;
+			for(int i = 0; i < decklength; i++)
+				deck[i] = lib.getOmenscard(obj.deck[i]);
+		}
 	}
 
 }
